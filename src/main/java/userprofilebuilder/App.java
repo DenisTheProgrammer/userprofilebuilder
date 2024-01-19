@@ -4,6 +4,10 @@
  */
 package userprofilebuilder;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+
+
 /**
  *
  * @author 
@@ -16,6 +20,29 @@ public class App {
     public static void main(String[] args) {
         // TODO code application logic here
         // This is where your application will start
+        
+        try
+            (
+                FileReader file = new FileReader("username.csv");
+                BufferedReader b = new BufferedReader(file);
+                )
+        {
+            while (true)
+            {
+            String line = b.readLine();
+            
+            if (line == null)
+            {
+                break;
+            }
+            
+            System.out.println(line);
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
     
 }
