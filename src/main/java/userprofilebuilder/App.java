@@ -6,6 +6,7 @@ package userprofilebuilder;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import userprofilebuilder.model.User;
 
 
 /**
@@ -35,8 +36,11 @@ public class App {
             {
                 break;
             }
+          
+            User u = new User();
+            u.setFullName(line);
             
-            System.out.println(line);
+            System.out.println(u.getFullName());
             }
         }
         catch(Exception e)
