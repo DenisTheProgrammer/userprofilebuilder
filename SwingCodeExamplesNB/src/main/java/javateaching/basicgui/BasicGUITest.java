@@ -56,8 +56,6 @@ public class BasicGUITest {
         ourwindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
         ourwindow.setVisible(true);
-        
-        System.out.println("I am testing git");
     }
 }
 
