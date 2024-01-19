@@ -9,6 +9,22 @@ package userprofilebuilder.model;
  * @author 
  * This is model class may be handy for putting data relevant to the User Profile in
  */
-public class User {
+public class User 
+{
+    
+    private String fullName;
+
+    //getters and setters
+
+    public String getFullName() {
+        return fullName;  
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+    
+    
+    
     
 }
