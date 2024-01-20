@@ -13,6 +13,13 @@ public class User
 {
     
     private String fullName;
+    
+    //constructor
+    
+    public User(String fullName)
+    {
+        this.fullName = fullName;
+    }
 
     //getters and setters
 
