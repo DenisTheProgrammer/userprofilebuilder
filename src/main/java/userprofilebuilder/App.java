@@ -7,6 +7,7 @@ package userprofilebuilder;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import userprofilebuilder.model.User;
+import userprofilebuilder.model.UserGroup;
 
 
 /**
@@ -27,7 +28,8 @@ public class App {
                 FileReader file = new FileReader("username.csv");
                 BufferedReader b = new BufferedReader(file);
                 )
-        {
+        {                  
+            
             while (true)
             {
             String line = b.readLine();
@@ -41,12 +43,24 @@ public class App {
             u.setFullName(line);
             
             System.out.println(u.getFullName());
+            
+            UserGroup uGroup = new UserGroup();
+            uGroup.setUserGroup(  u);
+            
+            for(int i = 0; i < uGroup.getUserGroup().size(); i ++)
+            {
+                System.out.println(uGroup.getUserGroup());
+                System.out.println(uGroup.getUserGroup().size());
             }
+            
+            }
+            
         }
         catch(Exception e)
         {
             e.printStackTrace();
-        }
+        }      
+        	  	  		      	    	        	         
     }
     
 }
