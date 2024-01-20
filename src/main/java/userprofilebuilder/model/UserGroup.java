@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * This is model class may be handy for putting data relevant groups of User Profiles in {many Users]
  */
 public class UserGroup {
-    private static ArrayList<User> userGroup = new ArrayList<>();
+    private ArrayList<User> userGroup = new ArrayList<>();
     //getters and setters
     
     public ArrayList<User> getUserGroup() {
