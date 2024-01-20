@@ -28,30 +28,23 @@ public class App {
                 FileReader file = new FileReader("username.csv");
                 BufferedReader b = new BufferedReader(file);
                 )
-        {                  
+        {    
+            String line;
             
-            while (true)
+            while ((line = b.readLine()) != null)
             {
-            String line = b.readLine();
-            
-            if (line == null)
-            {
-                break;
-            }
-          
-            User u = new User();
-            u.setFullName(line);
-            
-            System.out.println(u.getFullName());
-            
+        
             UserGroup uGroup = new UserGroup();
+            
+            User u = new User(line);
             uGroup.setUserGroup(  u);
             
-            for(int i = 0; i < uGroup.getUserGroup().size(); i ++)
+            /*for(int i = 0; i < uGroup.getUserGroup().size(); i ++)
             {
-                System.out.println(uGroup.getUserGroup());
-                System.out.println(uGroup.getUserGroup().size());
-            }
+                System.out.println(uGroup.getUserGroup().get(i));
+            }*/
+            
+            System.out.println(uGroup.getUserGroup());
             
             }   
             
