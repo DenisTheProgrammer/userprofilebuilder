@@ -22,7 +22,8 @@ public class App {
     public static void main(String[] args) {
         // TODO code application logic here
         // This is where your application will start
-        
+        UserGroup uGroup = new UserGroup(); //create a new group outside try catch so it can be accessed everywhere
+
         try
             (
                 FileReader file = new FileReader("username.csv");
@@ -30,29 +31,28 @@ public class App {
                 )
         {    
             String line;
-            
+   
             while ((line = b.readLine()) != null)
             {
-        
-            UserGroup uGroup = new UserGroup();
-            
             User u = new User(line);
-            uGroup.setUserGroup(  u);
+            uGroup.setUserGroup(  u); //new object users in then add each user to ArrayList
             
             /*for(int i = 0; i < uGroup.getUserGroup().size(); i ++)
             {
                 System.out.println(uGroup.getUserGroup().get(i));
             }*/
             
-            System.out.println(uGroup.getUserGroup());
-            
+            //System.out.println(uGroup.getUserGroup()); 
             }   
             
         }
         catch(Exception e)
         {
             e.printStackTrace();
-        }      
+        }     
+        
+        
+        System.out.println(uGroup.getUserGroup()); //show me the ArrayList
         	  	  		      	    	        	         
     }
     
