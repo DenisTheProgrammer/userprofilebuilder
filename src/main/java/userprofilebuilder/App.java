@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import userprofilebuilder.model.User;
 import userprofilebuilder.model.UserGroup;
+import userprofilebuilder.view.MainViewer;
 
 
 /**
@@ -53,6 +54,9 @@ public class App {
         
         
         System.out.println(uGroup.getUserGroup()); //show me the ArrayList
+        
+        MainViewer showGUI = new MainViewer();
+        showGUI.myGui();
         	  	  		      	    	        	         
     }
     
