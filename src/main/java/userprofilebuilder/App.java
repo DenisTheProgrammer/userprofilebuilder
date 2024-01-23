@@ -56,7 +56,7 @@ public class App {
         System.out.println(uGroup.getUserGroup()); //show me the ArrayList
         
         MainViewer showGUI = new MainViewer();
-        showGUI.myGui();
+        showGUI.myGui(uGroup.getUserGroup());
         	  	  		      	    	        	         
     }
     
