@@ -14,11 +14,11 @@ import java.util.ArrayList;
 public class UserGroup {
     private ArrayList<User> userGroup = new ArrayList<>();
     //getters and setters
-    
+
     public ArrayList<User> getUserGroup() {
         return userGroup;
     }
-
+    
     public void setUserGroup(User user) {
         userGroup.add( user);
     }
