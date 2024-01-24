@@ -28,7 +28,7 @@ public class App {
         try
             (
                 FileReader file = new FileReader("username.csv");
-                BufferedReader b = new BufferedReader(file);
+                BufferedReader b = new BufferedReader(file); //initialise file and buffered reader
                 )
         {    
             String line;
@@ -53,10 +53,10 @@ public class App {
         }     
         
         
-        System.out.println(uGroup.getUserGroup()); //show me the ArrayList
+        //System.out.println(uGroup.getUserGroup()); //show me the ArrayList
         
         MainViewer showGUI = new MainViewer();
-        showGUI.myGui(uGroup.getUserGroup());
+        showGUI.myGui(uGroup.getUserGroup());//initialise and show GUI + pass ArrayList
         	  	  		      	    	        	         
     }
     
