@@ -32,7 +32,7 @@ public class User
     }
 
     @Override
-    public String toString()
+    public String toString() //to string to display them when asking for array list
     {
         return this.getFullName();
     }
