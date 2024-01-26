@@ -36,16 +36,10 @@ public class MainViewer extends JFrame
         
         /*JPanel topPan = new JPanel();
         appFrame.add(topPan);*/
-
-        
-        JTabbedPane tabs = new JTabbedPane();
-        tabs.add("User Name", rootPane);
-        appFrame.add(tabs, BorderLayout.PAGE_START); //tabbed pans, run app to see, this is the top User Name one
-        
-        
+  
         JPanel midPan = new JPanel();
         midPan.setLayout(new GridBagLayout());
-        appFrame.add(midPan, BorderLayout.CENTER);//create a panel that goes in the center of the frame and has GridBagLayout
+        appFrame.add(midPan,BorderLayout.CENTER);//create a panel that goes in the center of the frame and has GridBagLayout
         
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
@@ -70,14 +64,16 @@ public class MainViewer extends JFrame
             butPanel.add(delButton);//add the buttons to the panel
             radButOns.add(selButton);//add the buttons to a group to make it easied for layout purposes(future)
             midPan.add(butPanel,gbc);//add the new pannel to the existing panel
-        }      
+        }    
         
-        appFrame.setSize(600,400);
+        JTabbedPane tabs = new JTabbedPane();
+        tabs.addTab("User Name", midPan);
+        appFrame.add(tabs, BorderLayout.PAGE_START); //tabbed pans, run app to see, this is the top User Name one
+        
+        appFrame.setSize(500,230);
         appFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         appFrame.setVisible(true);//remeber to always set these attributes AT THE END or else app will not display
-        
- 
-        
+     
     }
     
     
