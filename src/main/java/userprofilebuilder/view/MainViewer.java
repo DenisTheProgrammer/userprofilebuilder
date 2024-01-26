@@ -37,9 +37,17 @@ public class MainViewer extends JFrame
         /*JPanel topPan = new JPanel();
         appFrame.add(topPan);*/
   
-        JPanel midPan = new JPanel();
-        midPan.setLayout(new GridBagLayout());
-        appFrame.add(midPan,BorderLayout.CENTER);//create a panel that goes in the center of the frame and has GridBagLayout
+        JPanel namePan = new JPanel();
+        namePan.setLayout(new GridBagLayout());
+        appFrame.add(namePan,BorderLayout.CENTER);//create a panel that goes in the center of the frame and has GridBagLayout
+        
+        JPanel titlePan = new JPanel();
+        titlePan.setLayout(new GridBagLayout());
+        appFrame.add(titlePan,BorderLayout.CENTER);//create a panel that goes in the center of the frame and has GridBagLayout
+        
+        JPanel emailPan = new JPanel();
+        emailPan.setLayout(new GridBagLayout());
+        appFrame.add(emailPan,BorderLayout.CENTER);//create a panel that goes in the center of the frame and has GridBagLayout
         
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
@@ -48,7 +56,13 @@ public class MainViewer extends JFrame
                                                                //to keep building knowledge
         
         Border border = BorderFactory.createTitledBorder("Name");
-        midPan.setBorder(border);//this is how you set a titled border and add it to a panel or maybe even a frame
+        namePan.setBorder(border);//this is how you set a titled border and add it to a panel or maybe even a frame
+        
+        Border border2 = BorderFactory.createTitledBorder("Title");
+        titlePan.setBorder(border2);//this is how you set a titled border and add it to a panel or maybe even a frame
+        
+        Border border3 = BorderFactory.createTitledBorder("Email");
+        emailPan.setBorder(border3);//this is how you set a titled border and add it to a panel or maybe even a frame
         
    
         ButtonGroup radButOns = new ButtonGroup();
@@ -56,18 +70,49 @@ public class MainViewer extends JFrame
         for(int i = 0; i < myList.size();i++)
         {
             JPanel butPanel = new JPanel();//create a pannel per button
-            JRadioButton selButton = new JRadioButton(String.valueOf(myList.get(i)));
+            JRadioButton selButton = new JRadioButton(String.valueOf(myList.get(i).getFullName()));
             JButton editButton = new JButton("Edit");
             JButton delButton = new JButton("Delete");//create the buttons
             butPanel.add(selButton);
             butPanel.add(editButton);
             butPanel.add(delButton);//add the buttons to the panel
             radButOns.add(selButton);//add the buttons to a group to make it easied for layout purposes(future)
-            midPan.add(butPanel,gbc);//add the new pannel to the existing panel
+            namePan.add(butPanel,gbc);//add the new pannel to the existing panel
+        }
+        
+        
+        for(int i = 0; i < myList.size();i++)
+        {
+            JPanel butPanel = new JPanel();//create a pannel per button
+            JRadioButton selButton = new JRadioButton(String.valueOf(myList.get(i).getUserTitle()));
+            JButton editButton = new JButton("Edit");
+            JButton delButton = new JButton("Delete");//create the buttons
+            butPanel.add(selButton);
+            butPanel.add(editButton);
+            butPanel.add(delButton);//add the buttons to the panel
+            radButOns.add(selButton);//add the buttons to a group to make it easied for layout purposes(future)
+            titlePan.add(butPanel,gbc);//add the new pannel to the existing panel
         }    
         
+        
+        for(int i = 0; i < myList.size();i++)
+        {
+            JPanel butPanel = new JPanel();//create a pannel per button
+            JRadioButton selButton = new JRadioButton(String.valueOf(myList.get(i).getUserEmail()));
+            JButton editButton = new JButton("Edit");
+            JButton delButton = new JButton("Delete");//create the buttons
+            butPanel.add(selButton);
+            butPanel.add(editButton);
+            butPanel.add(delButton);//add the buttons to the panel
+            radButOns.add(selButton);//add the buttons to a group to make it easied for layout purposes(future)
+            emailPan.add(butPanel,gbc);//add the new pannel to the existing panel
+        }    
+         
+        
         JTabbedPane tabs = new JTabbedPane();
-        tabs.addTab("User Name", midPan);
+        tabs.addTab("Title", titlePan);
+        tabs.addTab("User Name", namePan);
+        tabs.addTab("Email", emailPan);
         appFrame.add(tabs, BorderLayout.PAGE_START); //tabbed pans, run app to see, this is the top User Name one
         
         appFrame.setSize(500,230);

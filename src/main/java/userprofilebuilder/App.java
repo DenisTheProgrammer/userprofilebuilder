@@ -27,7 +27,7 @@ public class App {
 
         try
             (
-                FileReader file = new FileReader("username.csv");
+                FileReader file = new FileReader("userprofile.csv");
                 BufferedReader b = new BufferedReader(file); //initialise file and buffered reader
                 )
         {    
@@ -35,10 +35,12 @@ public class App {
    
             while ((line = b.readLine()) != null)
             {
-            User u = new User(line);
-            uGroup.setUserGroup(  u); //new object users in then add each user to ArrayList
+            String[] details = line.split(",");
+            //System.out.println(details[2]);
+            User u = new User(details[1], details[2], details[3]);
+            uGroup.setUserGroup(u); //new object users in then add each user to ArrayList
             
-            /*for(int i = 0; i < uGroup.getUserGroup().size(); i ++)
+            /*for(int i = 0; i < details.length; i ++)
             {
                 System.out.println(uGroup.getUserGroup().get(i));
             }*/
@@ -53,7 +55,7 @@ public class App {
         }     
         
         
-        //System.out.println(uGroup.getUserGroup()); //show me the ArrayList
+        System.out.println(uGroup.getUserGroup()); //show me the ArrayList
         
         MainViewer showGUI = new MainViewer();
         showGUI.myGui(uGroup.getUserGroup());//initialise and show GUI + pass ArrayList

@@ -11,30 +11,51 @@ package userprofilebuilder.model;
  */
 public class User 
 {
-    
+    private String userTitle;
     private String fullName;
+    private String userEmail;
+
+
     
     //constructor
     
-    public User(String fullName)
+    public User(String userTitle, String fullName, String userEmail)
     {
+        this.userTitle = userTitle;
         this.fullName = fullName;
+        this.userEmail = userEmail;
     }
 
     //getters and setters
 
+    public String getUserTitle() {
+        return userTitle;
+    }
+
+    public void setUserTitle(String userTitle) {
+        this.userTitle = userTitle;
+    }
+
     public String getFullName() {
-        return fullName;  
+        return fullName;
     }
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
 
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
     @Override
     public String toString() //to string to display them when asking for array list
     {
-        return this.getFullName();
+        return this.getUserTitle() + " " + this.getFullName() + " " + this.getUserEmail();
     }
     
     
