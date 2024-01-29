@@ -33,6 +33,7 @@ public class MainViewer extends JFrame implements ActionListener
     private JPanel namePan = new JPanel();
     private JPanel titlePan = new JPanel();
     private JPanel emailPan = new JPanel();
+    private ButtonGroup radButOns = new ButtonGroup();
     
     
     //getters and setters
@@ -61,10 +62,16 @@ public class MainViewer extends JFrame implements ActionListener
         this.emailPan = emailPan;
     }
     
+    public ButtonGroup getRadButOns() {
+        return radButOns;
+    }
+
+    public void setRadButOns(ButtonGroup radButOns) {
+        this.radButOns = radButOns;
+    }
+    
     //methods
     
-    
-  
     
     public void myGui(ArrayList<User> myList)
     {
@@ -99,7 +106,7 @@ public class MainViewer extends JFrame implements ActionListener
         emailPan.setBorder(border3);//this is how you set a titled border and add it to a panel or maybe even a frame
         
    
-        ButtonGroup radButOns = new ButtonGroup();
+        
               
         for(int i = 0; i < myList.size();i++)
         {
@@ -147,7 +154,7 @@ public class MainViewer extends JFrame implements ActionListener
         tabs.addTab("Title", titlePan);
         tabs.addTab("User Name", namePan);
         tabs.addTab("Email", emailPan);
-        appFrame.add(tabs, BorderLayout.PAGE_START); //tabbed pans, run app to see, this is the top User Name one
+        appFrame.add(tabs, BorderLayout.PAGE_START); //tabbed pans, run app to see, added all 3 tabs
         
        
         
