@@ -9,6 +9,10 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -107,7 +111,105 @@ public class panelBuilder
                 String input = JOptionPane.showInputDialog("Enter new text:",text);//create a JOptionPane that allows user input
                                                                                                           //and displays the existing radio text
                 System.out.println(input);
-            }
+                
+                
+                try
+                (
+                    FileReader file = new FileReader("userprofile.csv");
+                    BufferedReader b = new BufferedReader(file); //initialise file and buffered reader
+                    FileWriter myFile = new FileWriter("temp.csv");
+                    BufferedWriter writer = new BufferedWriter(myFile);
+                )
+                {    
+                    String line;
+   
+                    while ((line = b.readLine()) != null)
+                    {
+                        String[] details = line.split(",");
+                        //System.out.println(details[2]);
+                        Boolean flag = false;
+                        for(int i = 0; i < details.length; i ++)
+                        {
+                            if(!(input.equals(text)))
+                            {
+                               if (text.equals(details[i]))
+                               {
+                                   if(i == (details.length - 1))
+                                    {
+                                        writer.write(input); 
+                                        break;
+                                    }
+                        
+                                    else
+                                    {
+                                        writer.write(input + ", "); 
+                                        i++;
+                                    }
+                               }
+                            }
+                            
+                           
+                            if(i == (details.length - 1))
+                            {
+                                writer.write(details[i]);  
+                            }
+                        
+                            else
+                            {   
+                                writer.write(details[i]+", "); 
+                            }  
+                            
+                        }
+                    
+                        writer.newLine();
+                    }                      
+                }
+                catch(Exception s)
+                {
+                    s.printStackTrace();
+                } 
+                
+                
+                try
+                (
+                    FileReader temp = new FileReader("temp.csv");
+                    BufferedReader t = new BufferedReader(temp); //initialise file and buffered reader
+                    FileWriter userProfile = new FileWriter("userprofile.csv");
+                    BufferedWriter user = new BufferedWriter(userProfile);
+                )
+                {
+                    
+                
+                
+                    String replace;
+                    while((replace = t.readLine()) != null)
+                    {
+                        String[] words = replace.split(",");
+                        for(int i = 0; i < words.length; i++)
+                        {
+                            if(i == (words.length - 1))
+                            {
+                                user.write(words[i]); 
+                            }
+                            else
+                            {   
+                                user.write(words[i] + ", ");
+                            }
+                        
+                      
+                        }
+                        
+                        user.newLine();
+                    }
+                }
+                
+                catch(Exception x)
+                {
+                    x.printStackTrace();
+                }
+                
+            }    
+            
         
         }
     }
