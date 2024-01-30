@@ -75,7 +75,7 @@ public class panelBuilder
             
             JButton editButton = new JButton("Edit");
             editButton.addActionListener(new MyListener(selButton.getText()));
-            editButton.setActionCommand("Display");
+            editButton.setActionCommand("Edit");
             
             JButton delButton = new JButton("Delete");//create the buttons
             
@@ -102,7 +102,7 @@ public class panelBuilder
         @Override
         public void actionPerformed(ActionEvent e) 
         {
-            if (e.getActionCommand().equals("Display"))//Display action handled
+            if (e.getActionCommand().equals("Edit"))//Display action handled
             {
                 String input = JOptionPane.showInputDialog("Enter new text:",text);//create a JOptionPane that allows user input
                                                                                                           //and displays the existing radio text
