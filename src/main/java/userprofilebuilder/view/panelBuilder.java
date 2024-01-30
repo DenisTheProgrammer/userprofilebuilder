@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.Border;
@@ -103,7 +104,9 @@ public class panelBuilder
         {
             if (e.getActionCommand().equals("Display"))//Display action handled
             {
-                System.out.println(text);
+                String input = JOptionPane.showInputDialog("Enter new text:",text);//create a JOptionPane that allows user input
+                                                                                                          //and displays the existing radio text
+                System.out.println(input);
             }
         
         }
