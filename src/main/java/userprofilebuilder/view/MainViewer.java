@@ -79,9 +79,9 @@ public class MainViewer extends JFrame implements ActionListener
          
         
         JTabbedPane tabs = new JTabbedPane();
-        tabs.addTab("Title", titlePan);
+        tabs.addTab("User Title", titlePan);
         tabs.addTab("User Name", namePan);
-        tabs.addTab("Email", emailPan);
+        tabs.addTab("User Email", emailPan);
         appFrame.add(tabs, BorderLayout.PAGE_START); //tabbed pans, run app to see, added all 3 tabs
         
        
