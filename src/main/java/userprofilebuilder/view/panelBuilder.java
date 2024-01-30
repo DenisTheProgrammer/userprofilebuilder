@@ -113,7 +113,7 @@ public class panelBuilder
                 System.out.println(input);
                 
                 
-                try
+                try //this will be used to create a new temporary file where the modified content is written
                 (
                     FileReader file = new FileReader("userprofile.csv");
                     BufferedReader b = new BufferedReader(file); //initialise file and buffered reader
@@ -126,8 +126,6 @@ public class panelBuilder
                     while ((line = b.readLine()) != null)
                     {
                         String[] details = line.split(",");
-                        //System.out.println(details[2]);
-                        Boolean flag = false;
                         for(int i = 0; i < details.length; i ++)
                         {
                             if(!(input.equals(text)))
@@ -142,7 +140,7 @@ public class panelBuilder
                         
                                     else
                                     {
-                                        writer.write(input + ", "); 
+                                        writer.write(input + ","); 
                                         i++;
                                     }
                                }
@@ -156,7 +154,7 @@ public class panelBuilder
                         
                             else
                             {   
-                                writer.write(details[i]+", "); 
+                                writer.write(details[i]+","); 
                             }  
                             
                         }
@@ -170,7 +168,7 @@ public class panelBuilder
                 } 
                 
                 
-                try
+                try //this empties the actual file and writes the content of the temporary file in
                 (
                     FileReader temp = new FileReader("temp.csv");
                     BufferedReader t = new BufferedReader(temp); //initialise file and buffered reader
@@ -193,7 +191,7 @@ public class panelBuilder
                             }
                             else
                             {   
-                                user.write(words[i] + ", ");
+                                user.write(words[i] + ",");
                             }
                         
                       
@@ -207,6 +205,7 @@ public class panelBuilder
                 {
                     x.printStackTrace();
                 }
+                
                 
             }    
             
