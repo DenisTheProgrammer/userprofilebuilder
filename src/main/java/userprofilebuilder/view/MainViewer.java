@@ -5,7 +5,6 @@
 package userprofilebuilder.view;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -19,7 +18,7 @@ import userprofilebuilder.model.User;
  * @author 
  * This might be useful for defining you Main App Viewer e.g. a JFrame
  */
-public class MainViewer extends JFrame implements ActionListener
+public class MainViewer extends JFrame
 {
     private JPanel namePan = new JPanel();
     private JPanel titlePan = new JPanel();
@@ -92,12 +91,5 @@ public class MainViewer extends JFrame implements ActionListener
 
  
      
-    }
-    
-       @Override
-    public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        
-    }
-    
+    }   
 }

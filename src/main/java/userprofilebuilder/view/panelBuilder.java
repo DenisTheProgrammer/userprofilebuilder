@@ -7,6 +7,8 @@ package userprofilebuilder.view;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -20,7 +22,8 @@ import userprofilebuilder.model.User;
  *
  * @author Denis
  */
-public class panelBuilder {
+public class panelBuilder
+{
 
   
     private ButtonGroup radButOns = new ButtonGroup();
@@ -51,47 +54,61 @@ public class panelBuilder {
         
         for(int i = 0; i < userList.size();i++)
         {
+            JPanel butPanel = new JPanel();//create a pannel per button
+            JRadioButton selButton = null;//initiate selButton
+            
             if (menu.equals("fullName"))
             {
-                JPanel butPanel = new JPanel();//create a pannel per button
-                JRadioButton selButton = new JRadioButton(String.valueOf(userList.get(i).getFullName()));
-                JButton editButton = new JButton("Edit");
-                JButton delButton = new JButton("Delete");//create the buttons
-                butPanel.add(selButton);
-                butPanel.add(editButton);
-                butPanel.add(delButton);//add the buttons to the panel
-                radButOns.add(selButton);//add the buttons to a group to make it easied for layout purposes(future)
-                panel.add(butPanel,gbc);//add the new pannel to the existing panel
+                selButton = new JRadioButton(String.valueOf(userList.get(i).getFullName()));         
             }
             
             if (menu.equals("title"))
-            {
-               JPanel butPanel = new JPanel();//create a pannel per button
-                JRadioButton selButton = new JRadioButton(String.valueOf(userList.get(i).getUserTitle()));
-                JButton editButton = new JButton("Edit");
-                JButton delButton = new JButton("Delete");//create the buttons
-                butPanel.add(selButton);
-                butPanel.add(editButton);
-                butPanel.add(delButton);//add the buttons to the panel
-                radButOns.add(selButton);//add the buttons to a group to make it easied for layout purposes(future)
-                panel.add(butPanel,gbc);//add the new pannel to the existing panel 
+            {    
+                selButton = new JRadioButton(String.valueOf(userList.get(i).getUserTitle()));
             }
             
             if(menu.equals("email"))
             {
-                JPanel butPanel = new JPanel();//create a pannel per button
-                JRadioButton selButton = new JRadioButton(String.valueOf(userList.get(i).getUserEmail()));
-                JButton editButton = new JButton("Edit");
-                JButton delButton = new JButton("Delete");//create the buttons
-                butPanel.add(selButton);
-                butPanel.add(editButton);
-                butPanel.add(delButton);//add the buttons to the panel
-                radButOns.add(selButton);//add the buttons to a group to make it easied for layout purposes(future)
-                panel.add(butPanel,gbc);//add the new pannel to the existing panel
+                selButton = new JRadioButton(String.valueOf(userList.get(i).getUserEmail()));
             }
+            
+            JButton editButton = new JButton("Edit");
+            editButton.addActionListener(new MyListener(selButton.getText()));
+            editButton.setActionCommand("Display");
+            
+            JButton delButton = new JButton("Delete");//create the buttons
+            
+            butPanel.add(selButton);
+            butPanel.add(editButton);
+            butPanel.add(delButton);//add the buttons to the panel
+            
+            radButOns.add(selButton);//add the buttons to a group to make it easied for layout purposes(future)
+            panel.add(butPanel,gbc);//add the new pannel to the existing panel
         }
         
         
+        
     }
+    
+    private class MyListener  implements ActionListener //inner class to handle action listeners
+    {
+        private String text;
+        public MyListener(String text)//constructor that takes a parameter, see edit button
+        {
+            this.text = text;
+        }
+        
+        @Override
+        public void actionPerformed(ActionEvent e) 
+        {
+            if (e.getActionCommand().equals("Display"))//Display action handled
+            {
+                System.out.println(text);
+            }
+        
+        }
+    }
+
+  
     
 }
