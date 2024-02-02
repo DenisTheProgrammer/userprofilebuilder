@@ -4,7 +4,6 @@
  */
 package userprofilebuilder.view;
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,39 +17,67 @@ import userprofilebuilder.model.User;
  * @author 
  * This might be useful for defining you Main App Viewer e.g. a JFrame
  */
-public class MainViewer extends JFrame
+public final class MainViewer extends JFrame
 {
     private JPanel namePan = new JPanel();
     private JPanel titlePan = new JPanel();
     private JPanel emailPan = new JPanel(); 
+    private JTabbedPane tabs = new JTabbedPane();
+
+    //singleton + constructor
     
+    private static MainViewer instance;
+    private MainViewer(){}
+    public static MainViewer getInstance()
+    {
+       if(instance == null)
+       {
+           instance = new MainViewer();
+       }
+       return instance;
+    }
     
     //getters and setters
 
-        public JPanel getNamePan() {
+    public JPanel getNamePan() 
+    {
         return namePan;
     }
 
-    public void setNamePan(JPanel namePan) {
+    public void setNamePan(JPanel namePan) 
+    {
         this.namePan = namePan;
     }
 
-    public JPanel getTitlePan() {
+    public JPanel getTitlePan() 
+    {
         return titlePan;
     }
 
-    public void setTitlePan(JPanel titlePan) {
+    public void setTitlePan(JPanel titlePan) 
+    {
         this.titlePan = titlePan;
     }
 
-    public JPanel getEmailPan() {
+    public JPanel getEmailPan() 
+    {
         return emailPan;
     }
 
-    public void setEmailPan(JPanel emailPan) {
+    public void setEmailPan(JPanel emailPan) 
+    {
         this.emailPan = emailPan;
     }
+    
+    public JTabbedPane getTabs() 
+    {
+        return tabs;
+    }
 
+    public void setTabs(JTabbedPane tabs) 
+    {
+        this.tabs = tabs;
+    }
 
     //methods
     
@@ -77,7 +104,7 @@ public class MainViewer extends JFrame
  
          
         
-        JTabbedPane tabs = new JTabbedPane();
+        
         tabs.addTab("User Title", titlePan);
         tabs.addTab("User Name", namePan);
         tabs.addTab("User Email", emailPan);

@@ -29,11 +29,18 @@ import userprofilebuilder.model.User;
  */
 public class panelBuilder
 {
-
-  
+    private ArrayList<JRadioButton> radList = new ArrayList<>();
     private ButtonGroup radButOns = new ButtonGroup();
     
     //getters and setters
+    public ArrayList<JRadioButton> getRadList() {
+        return radList;
+    }
+
+    public void setRadList(ArrayList<JRadioButton> radList) {
+        this.radList = radList;
+    }
+    
     public ButtonGroup getRadButOns() {
         return radButOns;
     }
@@ -76,9 +83,10 @@ public class panelBuilder
             {
                 selButton = new JRadioButton(String.valueOf(userList.get(i).getUserEmail()));
             }
+            radList.add(selButton);
             
             JButton editButton = new JButton("Edit");
-            editButton.addActionListener(new MyListener(selButton.getText()));
+            editButton.addActionListener(new MyListener(selButton.getText(), userList));
             editButton.setActionCommand("Edit");
             
             JButton delButton = new JButton("Delete");//create the buttons
@@ -95,14 +103,28 @@ public class panelBuilder
         
     }
     
-    private class MyListener  implements ActionListener //inner class to handle action listeners
+    private class MyListener implements ActionListener //inner class to handle action listeners
     {
         private String text;
-        public MyListener(String text)//constructor that takes a parameter, see edit button
-        {
+        private ArrayList<User> userGroup;
+        
+        //getters and setters
+        public String getText() {
+            return text;
+        }
+
+        public void setText(String text) {
             this.text = text;
         }
         
+        //constructors
+        public MyListener(String text, ArrayList<User> userGroup)//constructor that takes a parameter, see edit button
+        {
+            this.text = text;
+            this.userGroup = userGroup;
+        }
+        
+        //methods
         @Override
         public void actionPerformed(ActionEvent e) 
         {
@@ -110,7 +132,7 @@ public class panelBuilder
             {
                 String input = JOptionPane.showInputDialog("Enter new text:",text);//create a JOptionPane that allows user input
                                                                                                           //and displays the existing radio text
-                System.out.println(input);
+                //System.out.println(input);
                 
                 
                 try //this will be used to create a new temporary file where the modified content is written
@@ -206,6 +228,17 @@ public class panelBuilder
                     x.printStackTrace();
                 }
                 
+                
+                for (JRadioButton button : getRadList())
+                {
+                    if(button.getText().equals(text))
+                    {
+                        button.setText(input);
+                    }
+                } 
+                
+                MainViewer app = MainViewer.getInstance();
+                app.validate();
                 
             }    
             
