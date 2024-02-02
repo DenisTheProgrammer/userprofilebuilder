@@ -23,7 +23,7 @@ public class App {
     public static void main(String[] args) {
         // TODO code application logic here
         // This is where your application will start
-        UserGroup uGroup = new UserGroup(); //create a new group outside try catch so it can be accessed everywhere
+        UserGroup uGroup = UserGroup.getInstance(); //create a new group outside try catch so it can be accessed everywhere
 
         try
             (
