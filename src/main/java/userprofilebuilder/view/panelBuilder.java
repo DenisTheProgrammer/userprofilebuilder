@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.Border;
+import userprofilebuilder.controller.FileManager;
 import userprofilebuilder.model.User;
 import userprofilebuilder.model.UserGroup;
 
@@ -124,126 +125,16 @@ public class panelBuilder
                 String input = JOptionPane.showInputDialog("Enter new text:",selButton.getText());//create a JOptionPane that allows user input
                                                                                                           //and displays the existing radio text
                 //System.out.println(input);
-                
-                
-                try //this will be used to create a new temporary file where the modified content is written
-                (
-                    FileReader file = new FileReader("userprofile.csv");
-                    BufferedReader b = new BufferedReader(file); //initialise file and buffered reader
-                    FileWriter myFile = new FileWriter("temp.csv");
-                    BufferedWriter writer = new BufferedWriter(myFile);
-                )
-                {    
-                    String line;
-   
-                    while ((line = b.readLine()) != null)
-                    {
-                        String[] details = line.split(",");
-                        for(int i = 0; i < details.length; i ++)
-                        {
-                            if(!(input.equals(selButton.getText())))
-                            {
-                               if (selButton.getText().equals(details[i]))
-                               {
-                                   if(i == (details.length - 1))
-                                    {
-                                        writer.write(input); 
-                                        break;
-                                    }
-                        
-                                    else
-                                    {
-                                        writer.write(input + ","); 
-                                        i++;
-                                    }
-                               }
-                            }
-                            
-                           
-                            if(i == (details.length - 1))
-                            {
-                                writer.write(details[i]);  
-                            }
-                        
-                            else
-                            {   
-                                writer.write(details[i]+","); 
-                            }  
-                            
-                        }
-                    
-                        writer.newLine();
-                    }                      
-                }
-                catch(Exception s)
-                {
-                    s.printStackTrace();
-                } 
-                
-                
-                try //this empties the actual file and writes the content of the temporary file in
-                (
-                    FileReader temp = new FileReader("temp.csv");
-                    BufferedReader t = new BufferedReader(temp); //initialise file and buffered reader
-                    FileWriter userProfile = new FileWriter("userprofile.csv");
-                    BufferedWriter user = new BufferedWriter(userProfile);
-                )
-                {
+                FileManager fileManager = new FileManager();
+                fileManager.tempCreator(input, selButton.getText()); //this function writes to the temporary file
+                fileManager.overwriterFromTemp();
 
-                    String replace;
-                    while((replace = t.readLine()) != null)
-                    {
-                        String[] words = replace.split(",");
-                        for(int i = 0; i < words.length; i++)
-                        {
-                            if(i == (words.length - 1))
-                            {
-                                user.write(words[i]); 
-                            }
-                            else
-                            {   
-                                user.write(words[i] + ",");
-                            }
-                        
-                      
-                        }
-                        
-                        user.newLine();
-                    }
-                }
-                
-                catch(Exception x)
-                {
-                    x.printStackTrace();
-                }
-                
                 selButton.setText(input);
                 
                 UserGroup uGroup = UserGroup.getInstance();//get the current instance of the user group
                 uGroup.getUserGroup().clear();//clear the current ArrayList, getting it ready for an updated version 
                 
-                try //this is the same try catch from the App Class, seeking to fill up the empty ArrayList with the modified objects
-                (
-                FileReader file = new FileReader("userprofile.csv");
-                BufferedReader b = new BufferedReader(file); //initialise file and buffered reader
-                )
-                {    
-                    String line;
-   
-                    while ((line = b.readLine()) != null)
-                    {
-                    String[] details = line.split(",");
-                    //System.out.println(details[2]);
-                    User u = new User(details[1], details[2], details[3]);
-                    uGroup.setUserGroup(u); //new object users in then add each user to ArrayList
-                    }      
-            
-                }
-                
-                catch(Exception d)
-                {
-                    d.printStackTrace();
-                } 
+                fileManager.fileInitialiser();
    
                     //MainViewer app = MainViewer.getInstance();
                     //app.validate();
