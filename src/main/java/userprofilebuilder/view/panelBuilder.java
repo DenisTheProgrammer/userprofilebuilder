@@ -189,9 +189,7 @@ public class panelBuilder
                     BufferedWriter user = new BufferedWriter(userProfile);
                 )
                 {
-                    
-                
-                
+
                     String replace;
                     while((replace = t.readLine()) != null)
                     {
@@ -220,23 +218,47 @@ public class panelBuilder
                 }
                 
                 selButton.setText(input);
-
                 
-                //MainViewer app = MainViewer.getInstance();
-                //app.validate();
+                UserGroup uGroup = UserGroup.getInstance();//get the current instance of the user group
+                uGroup.getUserGroup().clear();//clear the current ArrayList, getting it ready for an updated version 
+                
+                try //this is the same try catch from the App Class, seeking to fill up the empty ArrayList with the modified objects
+                (
+                FileReader file = new FileReader("userprofile.csv");
+                BufferedReader b = new BufferedReader(file); //initialise file and buffered reader
+                )
+                {    
+                    String line;
+   
+                    while ((line = b.readLine()) != null)
+                    {
+                    String[] details = line.split(",");
+                    //System.out.println(details[2]);
+                    User u = new User(details[1], details[2], details[3]);
+                    uGroup.setUserGroup(u); //new object users in then add each user to ArrayList
+                    }      
+            
+                }
+                
+                catch(Exception d)
+                {
+                    d.printStackTrace();
+                } 
+   
+                    //MainViewer app = MainViewer.getInstance();
+                    //app.validate();
                 
             }
             
             else if (e.getActionCommand().equals("delete"))
             {
-                System.out.println(selButton.getText());
-                UserGroup uGroup = UserGroup.getInstance();
+                UserGroup uGroup = UserGroup.getInstance(); //get the current instance of UserGroup
                 System.out.println("Before " + uGroup.getUserGroup());
-                for (int i = 0 ; i < uGroup.getUserGroup().size(); i++)
+                for (int i = 0 ; i < uGroup.getUserGroup().size(); i++)//loop through all the elements inside the ArrayList
                 {
-                    if (uGroup.getUserGroup().get(i).getFullName().equals(selButton.getText()))
+                    if (uGroup.getUserGroup().get(i).getFullName().equals(selButton.getText()))//these if statements are used to figure out what type of attribute has been deleted
                     {
-                        uGroup.getUserGroup().removeIf(obj -> obj.getFullName().equals(selButton.getText()));
+                        uGroup.getUserGroup().removeIf(obj -> obj.getFullName().equals(selButton.getText()));//this statement simply uses the type of attribute to delete the whole object
                     }
                     else if (uGroup.getUserGroup().get(i).getUserTitle().equals(selButton.getText()))
                     {
@@ -249,8 +271,9 @@ public class panelBuilder
                 }
                 System.out.println("After " + uGroup.getUserGroup());
                 
-                MainViewer app = MainViewer.getInstance();
-                app.validate();
+                
+                /*MainViewer app = MainViewer.getInstance();
+                app.revalidate();*/
                 
             }
             
