@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.Border;
 import userprofilebuilder.model.User;
+import userprofilebuilder.model.UserGroup;
 
 /**
  *
@@ -75,11 +76,13 @@ public class panelBuilder
                 selButton = new JRadioButton(String.valueOf(userList.get(i).getUserEmail()));
             }
             
-            JButton editButton = new JButton("Edit");
-            editButton.addActionListener(new MyListener(selButton));
-            editButton.setActionCommand("Edit");
+            JButton editButton = new JButton("Edit");//create the edit button
+            editButton.addActionListener(new MyListener(selButton));//link the listener to the MyListener class
+            editButton.setActionCommand("edit");//set command name
             
-            JButton delButton = new JButton("Delete");//create the buttons
+            JButton delButton = new JButton("Delete");//create the delete button
+            delButton.addActionListener(new MyListener(selButton));//link the listener to the MyListener Class
+            delButton.setActionCommand("delete");//set command name
             
             butPanel.add(selButton);
             butPanel.add(editButton);
@@ -116,7 +119,7 @@ public class panelBuilder
         @Override
         public void actionPerformed(ActionEvent e) 
         {
-            if (e.getActionCommand().equals("Edit"))//Display action handled
+            if (e.getActionCommand().equals("edit"))//edit action handled
             {
                 String input = JOptionPane.showInputDialog("Enter new text:",selButton.getText());//create a JOptionPane that allows user input
                                                                                                           //and displays the existing radio text
@@ -219,10 +222,37 @@ public class panelBuilder
                 selButton.setText(input);
 
                 
+                //MainViewer app = MainViewer.getInstance();
+                //app.validate();
+                
+            }
+            
+            else if (e.getActionCommand().equals("delete"))
+            {
+                System.out.println(selButton.getText());
+                UserGroup uGroup = UserGroup.getInstance();
+                System.out.println("Before " + uGroup.getUserGroup());
+                for (int i = 0 ; i < uGroup.getUserGroup().size(); i++)
+                {
+                    if (uGroup.getUserGroup().get(i).getFullName().equals(selButton.getText()))
+                    {
+                        uGroup.getUserGroup().removeIf(obj -> obj.getFullName().equals(selButton.getText()));
+                    }
+                    else if (uGroup.getUserGroup().get(i).getUserTitle().equals(selButton.getText()))
+                    {
+                        uGroup.getUserGroup().removeIf(obj -> obj.getUserTitle().equals(selButton.getText()));
+                    }
+                    else if (uGroup.getUserGroup().get(i).getUserEmail().equals(selButton.getText()))
+                    {
+                        uGroup.getUserGroup().removeIf(obj -> obj.getUserEmail().equals(selButton.getText()));
+                    }
+                }
+                System.out.println("After " + uGroup.getUserGroup());
+                
                 MainViewer app = MainViewer.getInstance();
                 app.validate();
                 
-            }    
+            }
             
         
         }

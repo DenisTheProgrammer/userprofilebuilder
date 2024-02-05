@@ -34,6 +34,6 @@ public final class UserGroup {
     }
     
     public void setUserGroup(User user) {
-        userGroup.add( user);
+        userGroup.add(user);
     }
 }
