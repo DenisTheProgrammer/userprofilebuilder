@@ -29,18 +29,9 @@ import userprofilebuilder.model.User;
  */
 public class panelBuilder
 {
-    private ArrayList<JRadioButton> radList = new ArrayList<>();
     private ButtonGroup radButOns = new ButtonGroup();
     
-    //getters and setters
-    public ArrayList<JRadioButton> getRadList() {
-        return radList;
-    }
-
-    public void setRadList(ArrayList<JRadioButton> radList) {
-        this.radList = radList;
-    }
-    
+    //getters and setters   
     public ButtonGroup getRadButOns() {
         return radButOns;
     }
@@ -83,10 +74,9 @@ public class panelBuilder
             {
                 selButton = new JRadioButton(String.valueOf(userList.get(i).getUserEmail()));
             }
-            radList.add(selButton);
             
             JButton editButton = new JButton("Edit");
-            editButton.addActionListener(new MyListener(selButton.getText(), userList));
+            editButton.addActionListener(new MyListener(selButton));
             editButton.setActionCommand("Edit");
             
             JButton delButton = new JButton("Delete");//create the buttons
@@ -105,23 +95,21 @@ public class panelBuilder
     
     private class MyListener implements ActionListener //inner class to handle action listeners
     {
-        private String text;
-        private ArrayList<User> userGroup;
+        private JRadioButton selButton;
         
         //getters and setters
-        public String getText() {
-            return text;
+        public JRadioButton getSelButton() {
+            return selButton;
         }
 
-        public void setText(String text) {
-            this.text = text;
+        public void setSelButton(JRadioButton selButton) {
+            this.selButton = selButton;
         }
         
         //constructors
-        public MyListener(String text, ArrayList<User> userGroup)//constructor that takes a parameter, see edit button
+        public MyListener(JRadioButton selButton)//constructor that takes a parameter, see edit button
         {
-            this.text = text;
-            this.userGroup = userGroup;
+            this.selButton = selButton;
         }
         
         //methods
@@ -130,7 +118,7 @@ public class panelBuilder
         {
             if (e.getActionCommand().equals("Edit"))//Display action handled
             {
-                String input = JOptionPane.showInputDialog("Enter new text:",text);//create a JOptionPane that allows user input
+                String input = JOptionPane.showInputDialog("Enter new text:",selButton.getText());//create a JOptionPane that allows user input
                                                                                                           //and displays the existing radio text
                 //System.out.println(input);
                 
@@ -150,9 +138,9 @@ public class panelBuilder
                         String[] details = line.split(",");
                         for(int i = 0; i < details.length; i ++)
                         {
-                            if(!(input.equals(text)))
+                            if(!(input.equals(selButton.getText())))
                             {
-                               if (text.equals(details[i]))
+                               if (selButton.getText().equals(details[i]))
                                {
                                    if(i == (details.length - 1))
                                     {
@@ -228,14 +216,8 @@ public class panelBuilder
                     x.printStackTrace();
                 }
                 
-                
-                for (JRadioButton button : getRadList())
-                {
-                    if(button.getText().equals(text))
-                    {
-                        button.setText(input);
-                    }
-                } 
+                selButton.setText(input);
+
                 
                 MainViewer app = MainViewer.getInstance();
                 app.validate();
