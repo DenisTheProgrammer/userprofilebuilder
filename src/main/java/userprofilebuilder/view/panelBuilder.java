@@ -126,7 +126,7 @@ public class panelBuilder
                                                                                                           //and displays the existing radio text
                 //System.out.println(input);
                 FileManager fileManager = new FileManager();
-                fileManager.tempCreator(input, selButton.getText()); //this function writes to the temporary file
+                fileManager.tempCreator(input, selButton.getText(),"modify"); //this function writes to the temporary file
                 fileManager.overwriterFromTemp();
 
                 selButton.setText(input);
@@ -144,7 +144,7 @@ public class panelBuilder
             else if (e.getActionCommand().equals("delete"))
             {
                 UserGroup uGroup = UserGroup.getInstance(); //get the current instance of UserGroup
-                System.out.println("Before " + uGroup.getUserGroup());
+                /*System.out.println("Before " + uGroup.getUserGroup());
                 for (int i = 0 ; i < uGroup.getUserGroup().size(); i++)//loop through all the elements inside the ArrayList
                 {
                     if (uGroup.getUserGroup().get(i).getFullName().equals(selButton.getText()))//these if statements are used to figure out what type of attribute has been deleted
@@ -160,7 +160,12 @@ public class panelBuilder
                         uGroup.getUserGroup().removeIf(obj -> obj.getUserEmail().equals(selButton.getText()));
                     }
                 }
-                System.out.println("After " + uGroup.getUserGroup());
+                System.out.println("After " + uGroup.getUserGroup());*/
+                FileManager fileManager = new FileManager();//create a new instance of our fresh class
+                fileManager.tempCreator(selButton.getText(), "", "delete");//this function modifies the temp file, removing the user deleted
+                fileManager.overwriterFromTemp();//this overwrites the userprofile.csv file
+                uGroup.getUserGroup().clear();//clear the current ArrayList, getting it ready for an updated version 
+                fileManager.fileInitialiser();//create the new version of the arrayList
                 
                 
                 /*MainViewer app = MainViewer.getInstance();

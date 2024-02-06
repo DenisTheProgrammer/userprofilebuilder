@@ -46,9 +46,11 @@ public class FileManager
     
     
     
-    public void tempCreator(String change, String comparator)
+    public void tempCreator(String change, String comparator, String choice)
     {
-       try //this will be used to create a new temporary file where the modified content is written
+        if (choice.equals("modify"))
+        {
+            try //this will be used to create a new temporary file where the modified content is written
                 (
                     FileReader file = new FileReader("userprofile.csv");
                     BufferedReader b = new BufferedReader(file); //initialise file and buffered reader
@@ -58,7 +60,7 @@ public class FileManager
                 {    
                     String line;
    
-                    while ((line = b.readLine()) != null)
+                   while ((line = b.readLine()) != null)
                     {
                         String[] details = line.split(",");
                         for(int i = 0; i < details.length; i ++)
@@ -96,11 +98,77 @@ public class FileManager
                     
                         writer.newLine();
                     }                      
+                     
                 }
                 catch(Exception s)
                 {
                     s.printStackTrace();
-                }  
+                }
+        }
+        
+        else if(choice.equals("delete"))
+        {
+       
+       
+            try(    FileReader file = new FileReader("userprofile.csv"); //this block deletes one user from the file
+                    BufferedReader b = new BufferedReader(file); //initialise file and buffered reader
+                    FileWriter myFile = new FileWriter("temp.csv");
+                    BufferedWriter writer = new BufferedWriter(myFile);)
+            {
+                String line;
+   
+                while ((line = b.readLine()) != null)
+                {
+                    String decision = "";
+                    String[] words = line.split(",");
+                    
+                    for (int i = 0; i < words.length; i++)
+                    {
+                        if(change.equals(words[i]))
+                        {
+                            decision = "delete";
+                            break;
+                        }
+                    }
+                    
+                    System.out.println(decision);
+                    
+                    if (decision.equals("delete"))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        for (int j = 0; j < words.length; j++)
+                        {
+                            if(j == (words.length - 1))
+                            {
+                                writer.write(words[j]); 
+                            }
+                        
+                            else
+                            {   
+                                writer.write(words[j]+","); 
+                            } 
+                        }
+                    } 
+                 writer.newLine();           
+                }
+           
+            }
+       
+            catch(Exception b)
+            {
+                b.printStackTrace();
+            }
+        }
+        
+        else
+        {
+            System.out.println("You have entered the wrong String for your choise parameter");
+        }
+       
+       
     }
     
     public void overwriterFromTemp()
