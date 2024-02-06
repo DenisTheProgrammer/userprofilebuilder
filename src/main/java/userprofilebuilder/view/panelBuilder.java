@@ -9,10 +9,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -41,7 +37,6 @@ public class panelBuilder
     public void setRadButOns(ButtonGroup radButOns) {
         this.radButOns = radButOns;
     }
-    
     
     //methods
     public void borderSetUp(JPanel panel, String name)
@@ -78,11 +73,12 @@ public class panelBuilder
             }
             
             JButton editButton = new JButton("Edit");//create the edit button
-            editButton.addActionListener(new MyListener(selButton));//link the listener to the MyListener class
+            JButton delButton = new JButton("Delete");//create the delete button
+            
+            editButton.addActionListener(new MyListener(selButton, editButton, delButton));//link the listener to the MyListener class
             editButton.setActionCommand("edit");//set command name
             
-            JButton delButton = new JButton("Delete");//create the delete button
-            delButton.addActionListener(new MyListener(selButton));//link the listener to the MyListener Class
+            delButton.addActionListener(new MyListener(selButton, editButton, delButton));//link the listener to the MyListener Class
             delButton.setActionCommand("delete");//set command name
             
             butPanel.add(selButton);
@@ -100,6 +96,8 @@ public class panelBuilder
     private class MyListener implements ActionListener //inner class to handle action listeners
     {
         private JRadioButton selButton;
+        private JButton editButton;
+        private JButton delButton;
         
         //getters and setters
         public JRadioButton getSelButton() {
@@ -111,9 +109,11 @@ public class panelBuilder
         }
         
         //constructors
-        public MyListener(JRadioButton selButton)//constructor that takes a parameter, see edit button
+        public MyListener(JRadioButton selButton, JButton editButton, JButton delButton)//constructor that takes a parameter, see edit button
         {
             this.selButton = selButton;
+            this.editButton = editButton;
+            this.delButton = delButton;
         }
         
         //methods
@@ -167,9 +167,11 @@ public class panelBuilder
                 uGroup.getUserGroup().clear();//clear the current ArrayList, getting it ready for an updated version 
                 fileManager.fileInitialiser();//create the new version of the arrayList
                 
-                
-                /*MainViewer app = MainViewer.getInstance();
-                app.revalidate();*/
+                MainViewer app = MainViewer.getInstance();
+                app.remove(selButton);
+                app.remove(editButton);
+                app.remove(delButton);
+                app.revalidate();
                 
             }
             
