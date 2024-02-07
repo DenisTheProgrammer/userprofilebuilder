@@ -166,6 +166,7 @@ public class panelBuilder
                 fileManager.overwriterFromTemp();//this overwrites the userprofile.csv file
                 uGroup.getUserGroup().clear();//clear the current ArrayList, getting it ready for an updated version 
                 fileManager.fileInitialiser();//create the new version of the arrayList
+                //System.out.println("After " + uGroup.getUserGroup());
                 
                 MainViewer app = MainViewer.getInstance();
                 app.remove(selButton);
