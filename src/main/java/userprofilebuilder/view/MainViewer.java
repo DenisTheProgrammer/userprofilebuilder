@@ -6,6 +6,9 @@ package userprofilebuilder.view;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.WindowConstants;
@@ -86,6 +89,18 @@ public final class MainViewer extends JFrame
         JFrame appFrame = new JFrame("User Profile Builder");//initialise the frame
         appFrame.setLayout(new BorderLayout());//set the layout to Border
         
+        JMenuBar menu = new JMenuBar();
+        JMenu file = new JMenu("File");
+        JMenuItem open = new JMenuItem("Open");
+        JMenuItem save = new JMenuItem("Save");
+        JMenuItem quit = new JMenuItem("Quit");
+        
+        menu.add(file);
+        file.add(open);
+        file.add(save);
+        file.add(quit);
+        
+        appFrame.add(menu, BorderLayout.PAGE_START);
         
         panelBuilder builder = new panelBuilder();
         
@@ -108,7 +123,7 @@ public final class MainViewer extends JFrame
         tabs.addTab("User Title", titlePan);
         tabs.addTab("User Name", namePan);
         tabs.addTab("User Email", emailPan);
-        appFrame.add(tabs, BorderLayout.PAGE_START); //tabbed pans, run app to see, added all 3 tabs
+        appFrame.add(tabs); //tabbed pans, run app to see, added all 3 tabs
         
        
         
