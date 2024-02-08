@@ -108,8 +108,8 @@ public final class MainViewer extends JFrame
         builder.borderSetUp(titlePan, "Title");
         builder.borderSetUp(emailPan, "Email");
         
-        builder.panSetUp(namePan, "fullName", myList);
         builder.panSetUp(titlePan, "title", myList);
+        builder.panSetUp(namePan, "fullName", myList);
         builder.panSetUp(emailPan, "email", myList);
     
         

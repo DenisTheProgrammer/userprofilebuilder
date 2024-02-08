@@ -29,7 +29,8 @@ public class panelBuilder
 {
     private ButtonGroup radButOns = new ButtonGroup();
     private ArrayList<JPanel> butPanStorer = new ArrayList<>();
-    
+    private ArrayList<JRadioButton> radInd = new ArrayList<>();
+
     //getters and setters   
     public ButtonGroup getRadButOns() {
         return radButOns;
@@ -45,6 +46,14 @@ public class panelBuilder
 
     public void setButPanStorer(ArrayList<JPanel> butPanStorer) {
         this.butPanStorer = butPanStorer;
+    }
+    
+    public ArrayList<JRadioButton> getRadInd() {
+        return radInd;
+    }
+
+    public void setRadInd(ArrayList<JRadioButton> radInd) {
+        this.radInd = radInd;
     }
     
     //methods
@@ -69,26 +78,29 @@ public class panelBuilder
             
             if (menu.equals("fullName"))
             {
-                selButton = new JRadioButton(String.valueOf(userList.get(i).getFullName()));         
+                selButton = new JRadioButton(String.valueOf(userList.get(i).getFullName()));
+                radInd.add(selButton);
             }
             
             if (menu.equals("title"))
             {    
                 selButton = new JRadioButton(String.valueOf(userList.get(i).getUserTitle()));
+                radInd.add(selButton);
             }
             
             if(menu.equals("email"))
             {
                 selButton = new JRadioButton(String.valueOf(userList.get(i).getUserEmail()));
+                radInd.add(selButton);
             }
             
             JButton editButton = new JButton("Edit");//create the edit button
             JButton delButton = new JButton("Delete");//create the delete button
             
-            editButton.addActionListener(new MyListener(selButton, editButton, delButton));//link the listener to the MyListener class
+            editButton.addActionListener(new MyListener(selButton));//link the listener to the MyListener class
             editButton.setActionCommand("edit");//set command name
             
-            delButton.addActionListener(new MyListener(selButton, editButton, delButton));//link the listener to the MyListener Class
+            delButton.addActionListener(new MyListener(selButton));//link the listener to the MyListener Class
             delButton.setActionCommand("delete");//set command name
             
             butPanel.add(selButton);
@@ -106,8 +118,6 @@ public class panelBuilder
     private class MyListener implements ActionListener //inner class to handle action listeners
     {
         private JRadioButton selButton;
-        private JButton editButton;
-        private JButton delButton;
         
         //getters and setters
         public JRadioButton getSelButton() {
@@ -119,11 +129,9 @@ public class panelBuilder
         }
         
         //constructors
-        public MyListener(JRadioButton selButton, JButton editButton, JButton delButton)//constructor that takes a parameter, see edit button
+        public MyListener(JRadioButton selButton)//constructor that takes a parameter, see edit button
         {
             this.selButton = selButton;
-            this.editButton = editButton;
-            this.delButton = delButton;
         }
         
         //methods
@@ -176,15 +184,35 @@ public class panelBuilder
                 fileManager.overwriterFromTemp();//this overwrites the userprofile.csv file
                 uGroup.getUserGroup().clear();//clear the current ArrayList, getting it ready for an updated version 
                 fileManager.fileInitialiser();//create the new version of the arrayList
+                
                 //System.out.println("After " + uGroup.getUserGroup());
                 
                 System.out.println("Here is the list of panels " + getButPanStorer());
                 System.out.println("And the panel to remove is " + getButPanStorer().get(0));
                 MainViewer app = MainViewer.getInstance();
                 //app.remove(getButPanStorer().get(0));
-                getButPanStorer().get(5).setVisible(false);
-                //app.remove(editButton);
-                //app.remove(delButton);
+                int index = getRadInd().indexOf(selButton);
+                System.out.println(index);
+                if(index > 5)
+                {
+                  getButPanStorer().get(index - 6).setVisible(false);
+                  getButPanStorer().get(index - 3).setVisible(false);
+                  getButPanStorer().get(index).setVisible(false);
+                }
+                
+                else if(index >2)
+                {
+                    getButPanStorer().get(index - 3).setVisible(false);
+                    getButPanStorer().get(index).setVisible(false);
+                    getButPanStorer().get(index + 3).setVisible(false);
+                }
+                
+                else
+                {
+                    getButPanStorer().get(index).setVisible(false);
+                    getButPanStorer().get(index + 3).setVisible(false);
+                    getButPanStorer().get(index + 6).setVisible(false);
+                }
                 app.revalidate();
                 
             }
