@@ -28,6 +28,7 @@ import userprofilebuilder.model.UserGroup;
 public class panelBuilder
 {
     private ButtonGroup radButOns = new ButtonGroup();
+    private ArrayList<JPanel> butPanStorer = new ArrayList<>();
     
     //getters and setters   
     public ButtonGroup getRadButOns() {
@@ -36,6 +37,14 @@ public class panelBuilder
 
     public void setRadButOns(ButtonGroup radButOns) {
         this.radButOns = radButOns;
+    }
+    
+    public ArrayList<JPanel> getButPanStorer() {
+        return butPanStorer;
+    }
+
+    public void setButPanStorer(ArrayList<JPanel> butPanStorer) {
+        this.butPanStorer = butPanStorer;
     }
     
     //methods
@@ -55,6 +64,7 @@ public class panelBuilder
         for(int i = 0; i < userList.size();i++)
         {
             JPanel butPanel = new JPanel();//create a pannel per button
+            butPanStorer.add(butPanel); //add the panel that holds the buttons to a list to not lose the reference
             JRadioButton selButton = null;//initiate selButton
             
             if (menu.equals("fullName"))
@@ -168,10 +178,13 @@ public class panelBuilder
                 fileManager.fileInitialiser();//create the new version of the arrayList
                 //System.out.println("After " + uGroup.getUserGroup());
                 
+                System.out.println("Here is the list of panels " + getButPanStorer());
+                System.out.println("And the panel to remove is " + getButPanStorer().get(0));
                 MainViewer app = MainViewer.getInstance();
-                app.remove(selButton);
-                app.remove(editButton);
-                app.remove(delButton);
+                //app.remove(getButPanStorer().get(0));
+                getButPanStorer().get(5).setVisible(false);
+                //app.remove(editButton);
+                //app.remove(delButton);
                 app.revalidate();
                 
             }
