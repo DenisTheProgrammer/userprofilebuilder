@@ -4,7 +4,11 @@
  */
 package userprofilebuilder.view;
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -95,6 +99,12 @@ public final class MainViewer extends JFrame
         JMenuItem save = new JMenuItem("Save");
         JMenuItem quit = new JMenuItem("Quit");
         
+        quit.addActionListener(new menuAction());
+        quit.setActionCommand("quit");
+        
+        open.addActionListener(new menuAction());
+        open.setActionCommand("open");
+        
         menu.add(file);
         file.add(open);
         file.add(save);
@@ -112,26 +122,48 @@ public final class MainViewer extends JFrame
         builder.panSetUp(namePan, "fullName", myList);
         builder.panSetUp(emailPan, "email", myList);
     
-        
         appFrame.add(namePan,BorderLayout.CENTER);//create a panel that goes in the center of the frame and has GridBagLayout
         appFrame.add(titlePan,BorderLayout.CENTER);//create a panel that goes in the center of the frame and has GridBagLayout
         appFrame.add(emailPan,BorderLayout.CENTER);//create a panel that goes in the center of the frame and has GridBagLayout
- 
-         
-        
-        
+
         tabs.addTab("User Title", titlePan);
         tabs.addTab("User Name", namePan);
         tabs.addTab("User Email", emailPan);
         appFrame.add(tabs); //tabbed pans, run app to see, added all 3 tabs
-        
-       
-        
+             
         appFrame.setSize(600,400);
         appFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         appFrame.setVisible(true);//remeber to always set these attributes AT THE END or else app will not display
+    }  
+    
+    private class menuAction implements ActionListener
+    {
 
- 
-     
-    }   
+        @Override
+        public void actionPerformed(ActionEvent e) 
+        {
+            if(e.getActionCommand().equals("open"))
+            {
+                JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir"));
+                int open = fileChooser.showOpenDialog(new JFrame()); //shows 1 on cancel and 0 on opening a file
+                if(open == 0)
+                {
+                    File file = fileChooser.getSelectedFile();
+                    System.out.println(file);
+                }
+                else
+                {
+                    System.out.println("Open file cancelled");
+                }
+                
+                
+            }
+            
+            if (e.getActionCommand().equals("quit"))
+            {
+                System.exit(0); 
+            }
+        }
+        
+    }
 }

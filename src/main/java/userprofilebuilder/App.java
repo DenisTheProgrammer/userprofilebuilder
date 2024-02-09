@@ -3,11 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package userprofilebuilder;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
 import userprofilebuilder.controller.FileManager;
-import userprofilebuilder.model.User;
 import userprofilebuilder.model.UserGroup;
 import userprofilebuilder.view.MainViewer;
 

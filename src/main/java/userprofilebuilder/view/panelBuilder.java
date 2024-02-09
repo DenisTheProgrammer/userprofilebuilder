@@ -153,68 +153,45 @@ public class panelBuilder
                 uGroup.getUserGroup().clear();//clear the current ArrayList, getting it ready for an updated version 
                 
                 fileManager.fileInitialiser();
-   
-                    //MainViewer app = MainViewer.getInstance();
-                    //app.validate();
                 
             }
             
             else if (e.getActionCommand().equals("delete"))
             {
-                UserGroup uGroup = UserGroup.getInstance(); //get the current instance of UserGroup
-                /*System.out.println("Before " + uGroup.getUserGroup());
-                for (int i = 0 ; i < uGroup.getUserGroup().size(); i++)//loop through all the elements inside the ArrayList
-                {
-                    if (uGroup.getUserGroup().get(i).getFullName().equals(selButton.getText()))//these if statements are used to figure out what type of attribute has been deleted
-                    {
-                        uGroup.getUserGroup().removeIf(obj -> obj.getFullName().equals(selButton.getText()));//this statement simply uses the type of attribute to delete the whole object
-                    }
-                    else if (uGroup.getUserGroup().get(i).getUserTitle().equals(selButton.getText()))
-                    {
-                        uGroup.getUserGroup().removeIf(obj -> obj.getUserTitle().equals(selButton.getText()));
-                    }
-                    else if (uGroup.getUserGroup().get(i).getUserEmail().equals(selButton.getText()))
-                    {
-                        uGroup.getUserGroup().removeIf(obj -> obj.getUserEmail().equals(selButton.getText()));
-                    }
-                }
-                System.out.println("After " + uGroup.getUserGroup());*/
+                UserGroup uGroup = UserGroup.getInstance(); //get the current instance of UserGroup 
                 FileManager fileManager = new FileManager();//create a new instance of our fresh class
                 fileManager.tempCreator(selButton.getText(), "", "delete");//this function modifies the temp file, removing the user deleted
                 fileManager.overwriterFromTemp();//this overwrites the userprofile.csv file
                 uGroup.getUserGroup().clear();//clear the current ArrayList, getting it ready for an updated version 
                 fileManager.fileInitialiser();//create the new version of the arrayList
                 
-                //System.out.println("After " + uGroup.getUserGroup());
-                
-                System.out.println("Here is the list of panels " + getButPanStorer());
-                System.out.println("And the panel to remove is " + getButPanStorer().get(0));
                 MainViewer app = MainViewer.getInstance();
-                //app.remove(getButPanStorer().get(0));
+                
                 int index = getRadInd().indexOf(selButton);
                 System.out.println(index);
                 if(index > 5)
                 {
-                  getButPanStorer().get(index - 6).setVisible(false);
-                  getButPanStorer().get(index - 3).setVisible(false);
-                  getButPanStorer().get(index).setVisible(false);
+                   app.getTitlePan().remove(butPanStorer.get(index - 6));
+                   app.getNamePan().remove(butPanStorer.get(index - 3));
+                   app.getEmailPan().remove(butPanStorer.get(index));
                 }
                 
                 else if(index >2)
                 {
-                    getButPanStorer().get(index - 3).setVisible(false);
-                    getButPanStorer().get(index).setVisible(false);
-                    getButPanStorer().get(index + 3).setVisible(false);
+                    app.getTitlePan().remove(butPanStorer.get(index - 3));
+                    app.getNamePan().remove(butPanStorer.get(index));
+                    app.getEmailPan().remove(butPanStorer.get(index + 3));
                 }
                 
                 else
                 {
-                    getButPanStorer().get(index).setVisible(false);
-                    getButPanStorer().get(index + 3).setVisible(false);
-                    getButPanStorer().get(index + 6).setVisible(false);
+                    app.getTitlePan().remove(butPanStorer.get(index));
+                    app.getNamePan().remove(butPanStorer.get(index + 3));
+                    app.getEmailPan().remove(butPanStorer.get(index + 6));
                 }
-                app.revalidate();
-                
+
+                app.getTabs().revalidate();
+                app.getTabs().repaint(); 
             }
             
         
