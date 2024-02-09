@@ -152,7 +152,7 @@ public class panelBuilder
                 UserGroup uGroup = UserGroup.getInstance();//get the current instance of the user group
                 uGroup.getUserGroup().clear();//clear the current ArrayList, getting it ready for an updated version 
                 
-                fileManager.fileInitialiser();
+                fileManager.fileInitialiser("userprofile.csv");
                 
             }
             
@@ -163,7 +163,7 @@ public class panelBuilder
                 fileManager.tempCreator(selButton.getText(), "", "delete");//this function modifies the temp file, removing the user deleted
                 fileManager.overwriterFromTemp();//this overwrites the userprofile.csv file
                 uGroup.getUserGroup().clear();//clear the current ArrayList, getting it ready for an updated version 
-                fileManager.fileInitialiser();//create the new version of the arrayList
+                fileManager.fileInitialiser("userprofile.csv");//create the new version of the arrayList
                 
                 MainViewer app = MainViewer.getInstance();
                 

@@ -17,12 +17,12 @@ import userprofilebuilder.model.UserGroup;
  */
 public class FileManager 
 {
-    public void fileInitialiser()
+    public void fileInitialiser(String fileName)
     {
         UserGroup uGroup = UserGroup.getInstance();
         try //this reads the file and makes objects based on it
                 (
-                FileReader file = new FileReader("userprofile.csv");
+                FileReader file = new FileReader(fileName);
                 BufferedReader b = new BufferedReader(file); //initialise file and buffered reader
                 )
                 {    

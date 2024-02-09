@@ -16,7 +16,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.WindowConstants;
+import userprofilebuilder.controller.FileManager;
 import userprofilebuilder.model.User;
+import userprofilebuilder.model.UserGroup;
 
 
 /**
@@ -150,6 +152,11 @@ public final class MainViewer extends JFrame
                 {
                     File file = fileChooser.getSelectedFile();
                     System.out.println(file);
+                    UserGroup uGroup = UserGroup.getInstance();
+                    uGroup.getUserGroup().clear();
+                    FileManager fileManager = new FileManager();
+                    fileManager.fileInitialiser(file.getName());
+                    System.out.println("The new array consists of " + uGroup.getUserGroup());
                 }
                 else
                 {

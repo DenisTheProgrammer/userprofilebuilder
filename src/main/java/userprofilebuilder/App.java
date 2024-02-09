@@ -22,7 +22,7 @@ public class App {
         // This is where your application will start
         UserGroup uGroup = UserGroup.getInstance();
         FileManager fileManager = new FileManager();
-        fileManager.fileInitialiser();
+        fileManager.fileInitialiser("userprofile.csv");
 
         //System.out.println(uGroup.getUserGroup()); //show me the ArrayList
         
