@@ -32,6 +32,7 @@ public final class MainViewer extends JFrame
     private JPanel titlePan = new JPanel();
     private JPanel emailPan = new JPanel(); 
     private JTabbedPane tabs = new JTabbedPane();
+    private JFrame appFrame = new JFrame();
 
     //singleton + constructor
     
@@ -47,6 +48,13 @@ public final class MainViewer extends JFrame
     }
     
     //getters and setters
+    public JFrame getAppFrame() {
+        return appFrame;
+    }
+
+    public void setAppFrame(JFrame appFrame) {
+        this.appFrame = appFrame;
+    }
 
     public JPanel getNamePan() 
     {
@@ -90,9 +98,9 @@ public final class MainViewer extends JFrame
 
     //methods
     
-    public void myGui(ArrayList<User> myList)
+    public void myGui(ArrayList<User> myList, String fileName)
     {
-        JFrame appFrame = new JFrame("User Profile Builder");//initialise the frame
+        appFrame.setName("User Profile Builder");//give a name to the frame
         appFrame.setLayout(new BorderLayout());//set the layout to Border
         
         JMenuBar menu = new JMenuBar();
@@ -120,9 +128,9 @@ public final class MainViewer extends JFrame
         builder.borderSetUp(titlePan, "Title");
         builder.borderSetUp(emailPan, "Email");
         
-        builder.panSetUp(titlePan, "title", myList);
-        builder.panSetUp(namePan, "fullName", myList);
-        builder.panSetUp(emailPan, "email", myList);
+        builder.panSetUp(titlePan, "title", myList, fileName);
+        builder.panSetUp(namePan, "fullName", myList, fileName);
+        builder.panSetUp(emailPan, "email", myList, fileName);
     
         appFrame.add(namePan,BorderLayout.CENTER);//create a panel that goes in the center of the frame and has GridBagLayout
         appFrame.add(titlePan,BorderLayout.CENTER);//create a panel that goes in the center of the frame and has GridBagLayout
@@ -157,6 +165,18 @@ public final class MainViewer extends JFrame
                     FileManager fileManager = new FileManager();
                     fileManager.fileInitialiser(file.getName());
                     System.out.println("The new array consists of " + uGroup.getUserGroup());
+                    MainViewer view = MainViewer.getInstance();
+                    
+                    view.getTitlePan().removeAll();
+                    view.getNamePan().removeAll();
+                    view.getEmailPan().removeAll();
+                    
+                    view.getAppFrame().getContentPane().removeAll();
+                    
+                    view.getAppFrame().revalidate();
+                    view.getAppFrame().repaint();
+                    view.myGui(uGroup.getUserGroup(), file.getName());
+                    
                 }
                 else
                 {

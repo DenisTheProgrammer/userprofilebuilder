@@ -27,7 +27,7 @@ public class App {
         //System.out.println(uGroup.getUserGroup()); //show me the ArrayList
         
         MainViewer showGUI = MainViewer.getInstance();
-        showGUI.myGui(uGroup.getUserGroup());//initialise and show GUI + pass ArrayList
+        showGUI.myGui(uGroup.getUserGroup(), "userprofile.csv");//initialise and show GUI + pass ArrayList
         	  	  		      	    	        	         
     }
     

@@ -46,13 +46,13 @@ public class FileManager
     
     
     
-    public void tempCreator(String change, String comparator, String choice)
+    public void tempCreator(String fileName, String change, String comparator, String choice)
     {
         if (choice.equals("modify"))
         {
             try //this will be used to create a new temporary file where the modified content is written
                 (
-                    FileReader file = new FileReader("userprofile.csv");
+                    FileReader file = new FileReader(fileName);
                     BufferedReader b = new BufferedReader(file); //initialise file and buffered reader
                     FileWriter myFile = new FileWriter("temp.csv");
                     BufferedWriter writer = new BufferedWriter(myFile);
@@ -110,7 +110,7 @@ public class FileManager
         {
        
        
-            try(    FileReader file = new FileReader("userprofile.csv"); //this block deletes one user from the file
+            try(    FileReader file = new FileReader(fileName); //this block deletes one user from the file
                     BufferedReader b = new BufferedReader(file); //initialise file and buffered reader
                     FileWriter myFile = new FileWriter("temp.csv");
                     BufferedWriter writer = new BufferedWriter(myFile);)
@@ -171,13 +171,13 @@ public class FileManager
        
     }
     
-    public void overwriterFromTemp()
+    public void overwriterFromTemp(String fileName)
     {
        try //this writes the content of the temporary file inside the main file
                 (
                     FileReader temp = new FileReader("temp.csv");
                     BufferedReader t = new BufferedReader(temp); //initialise file and buffered reader
-                    FileWriter userProfile = new FileWriter("userprofile.csv");
+                    FileWriter userProfile = new FileWriter(fileName);
                     BufferedWriter user = new BufferedWriter(userProfile);
                 )
                 {

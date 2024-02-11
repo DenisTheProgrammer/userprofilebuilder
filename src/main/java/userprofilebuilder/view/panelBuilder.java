@@ -63,7 +63,7 @@ public class panelBuilder
        panel.setBorder(border);//this is how you set a titled border and add it to a panel
     }
     
-    public void panSetUp(JPanel panel, String menu, ArrayList<User> userList)
+    public void panSetUp(JPanel panel, String menu, ArrayList<User> userList, String fileName)
     {
         panel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -97,17 +97,17 @@ public class panelBuilder
             JButton editButton = new JButton("Edit");//create the edit button
             JButton delButton = new JButton("Delete");//create the delete button
             
-            editButton.addActionListener(new MyListener(selButton));//link the listener to the MyListener class
+            editButton.addActionListener(new MyListener(selButton, fileName));//link the listener to the MyListener class
             editButton.setActionCommand("edit");//set command name
             
-            delButton.addActionListener(new MyListener(selButton));//link the listener to the MyListener Class
+            delButton.addActionListener(new MyListener(selButton, fileName));//link the listener to the MyListener Class
             delButton.setActionCommand("delete");//set command name
             
             butPanel.add(selButton);
             butPanel.add(editButton);
             butPanel.add(delButton);//add the buttons to the panel
             
-            radButOns.add(selButton);//add the buttons to a group to make it easied for layout purposes(future)
+            radButOns.add(selButton);//add the buttons to a group to make it easier for layout purposes(future)
             panel.add(butPanel,gbc);//add the new pannel to the existing panel
         }
         
@@ -118,8 +118,17 @@ public class panelBuilder
     private class MyListener implements ActionListener //inner class to handle action listeners
     {
         private JRadioButton selButton;
-        
+        private String fileName;
+
         //getters and setters
+        public String getFileName() {
+            return fileName;
+        }
+        
+        public void setFileName(String fileName) {        
+            this.fileName = fileName;
+        }
+
         public JRadioButton getSelButton() {
             return selButton;
         }
@@ -128,10 +137,11 @@ public class panelBuilder
             this.selButton = selButton;
         }
         
-        //constructors
-        public MyListener(JRadioButton selButton)//constructor that takes a parameter, see edit button
+        //constructor
+        public MyListener(JRadioButton selButton, String fileName)//constructor that takes a parameter, see edit button
         {
             this.selButton = selButton;
+            this.fileName = fileName;
         }
         
         //methods
@@ -144,8 +154,8 @@ public class panelBuilder
                                                                                                           //and displays the existing radio text
                 //System.out.println(input);
                 FileManager fileManager = new FileManager();
-                fileManager.tempCreator(input, selButton.getText(),"modify"); //this function writes to the temporary file
-                fileManager.overwriterFromTemp();
+                fileManager.tempCreator(fileName, input, selButton.getText(),"modify"); //this function writes to the temporary file
+                fileManager.overwriterFromTemp(fileName);
 
                 selButton.setText(input);
                 
@@ -160,8 +170,8 @@ public class panelBuilder
             {
                 UserGroup uGroup = UserGroup.getInstance(); //get the current instance of UserGroup 
                 FileManager fileManager = new FileManager();//create a new instance of our fresh class
-                fileManager.tempCreator(selButton.getText(), "", "delete");//this function modifies the temp file, removing the user deleted
-                fileManager.overwriterFromTemp();//this overwrites the userprofile.csv file
+                fileManager.tempCreator(fileName, selButton.getText(), "", "delete");//this function modifies the temp file, removing the user deleted
+                fileManager.overwriterFromTemp(fileName);//this overwrites the userprofile.csv file
                 uGroup.getUserGroup().clear();//clear the current ArrayList, getting it ready for an updated version 
                 fileManager.fileInitialiser("userprofile.csv");//create the new version of the arrayList
                 
