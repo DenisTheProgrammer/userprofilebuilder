@@ -32,7 +32,7 @@ public class FileManager
                     {
                     String[] details = line.split(",");
                     //System.out.println(details[2]);
-                    User u = new User(details[1], details[2], details[3]);
+                    User u = new User(details[0], details[1], details[2], details[3]);
                     uGroup.setUserGroup(u); //new object users in then add each user to ArrayList
                     }      
             
@@ -206,6 +206,31 @@ public class FileManager
                 {
                     x.printStackTrace();
                 } 
+    }
+    
+    public void fileSave(String name)
+    {
+        try
+        (
+            FileWriter newFile = new FileWriter(name);
+            BufferedWriter writer = new BufferedWriter(newFile); 
+        )
+        {
+            UserGroup uGroup = UserGroup.getInstance();
+            for(int i = 0; i < uGroup.getUserGroup().size(); i++)
+            {
+                writer.write(uGroup.getUserGroup().get(i).getUserNumber() + ",");
+                writer.write(uGroup.getUserGroup().get(i).getUserTitle() + ",");
+                writer.write(uGroup.getUserGroup().get(i).getFullName() + ",");
+                writer.write(uGroup.getUserGroup().get(i).getUserEmail());
+                writer.newLine();
+            }
+        }
+        
+        catch(Exception x)
+        {
+            x.printStackTrace();
+        }
     }
     
 }

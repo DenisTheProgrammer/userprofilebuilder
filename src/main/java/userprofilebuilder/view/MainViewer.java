@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.WindowConstants;
@@ -115,6 +116,9 @@ public final class MainViewer extends JFrame
         open.addActionListener(new menuAction());
         open.setActionCommand("open");
         
+        save.addActionListener(new menuAction());
+        save.setActionCommand("save");
+        
         menu.add(file);
         file.add(open);
         file.add(save);
@@ -154,28 +158,28 @@ public final class MainViewer extends JFrame
         {
             if(e.getActionCommand().equals("open"))
             {
-                JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir"));
+                JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir")); //opens a file chooser to the project directory
                 int open = fileChooser.showOpenDialog(new JFrame()); //shows 1 on cancel and 0 on opening a file
                 if(open == 0)
                 {
-                    File file = fileChooser.getSelectedFile();
-                    System.out.println(file);
+                    File file = fileChooser.getSelectedFile();//gets the selected file and stores it
+                    //System.out.println(file);
                     UserGroup uGroup = UserGroup.getInstance();
-                    uGroup.getUserGroup().clear();
+                    uGroup.getUserGroup().clear();//clear array
                     FileManager fileManager = new FileManager();
-                    fileManager.fileInitialiser(file.getName());
-                    System.out.println("The new array consists of " + uGroup.getUserGroup());
+                    fileManager.fileInitialiser(file.getName());//populate array with content of selected file
+                    //System.out.println("The new array consists of " + uGroup.getUserGroup());
                     MainViewer view = MainViewer.getInstance();
                     
                     view.getTitlePan().removeAll();
                     view.getNamePan().removeAll();
-                    view.getEmailPan().removeAll();
+                    view.getEmailPan().removeAll();//remove each pan
                     
-                    view.getAppFrame().getContentPane().removeAll();
+                    view.getAppFrame().getContentPane().removeAll();//remove all content from the view
                     
                     view.getAppFrame().revalidate();
                     view.getAppFrame().repaint();
-                    view.myGui(uGroup.getUserGroup(), file.getName());
+                    view.myGui(uGroup.getUserGroup(), file.getName());//re populate the view with new content
                     
                 }
                 else
@@ -186,9 +190,16 @@ public final class MainViewer extends JFrame
                 
             }
             
-            if (e.getActionCommand().equals("quit"))
+            else if (e.getActionCommand().equals("quit"))
             {
-                System.exit(0); 
+                System.exit(0); //exits app
+            }
+            
+            else if (e.getActionCommand().equals("save"))
+            {
+                FileManager fileManager = new FileManager();
+                String input = JOptionPane.showInputDialog("Enter the name of your new file");//displays an input window
+                fileManager.fileSave(input);
             }
         }
         

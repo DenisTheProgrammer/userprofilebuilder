@@ -24,7 +24,7 @@ public class App {
         FileManager fileManager = new FileManager();
         fileManager.fileInitialiser("userprofile.csv");
 
-        //System.out.println(uGroup.getUserGroup()); //show me the ArrayList
+        System.out.println(uGroup.getUserGroup()); //show me the ArrayList
         
         MainViewer showGUI = MainViewer.getInstance();
         showGUI.myGui(uGroup.getUserGroup(), "userprofile.csv");//initialise and show GUI + pass ArrayList

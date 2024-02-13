@@ -11,22 +11,30 @@ package userprofilebuilder.model;
  */
 public class User 
 {
+    private String userNumber;
     private String userTitle;
     private String fullName;
     private String userEmail;
-
-
-    
+  
     //constructor
     
-    public User(String userTitle, String fullName, String userEmail)
+    public User(String userNumber, String userTitle, String fullName, String userEmail)
     {
+        this.userNumber = userNumber;
         this.userTitle = userTitle;
         this.fullName = fullName;
         this.userEmail = userEmail;
     }
 
     //getters and setters
+
+    public String getUserNumber() {
+        return userNumber;
+    }
+
+    public void setUserNumber(String userNumber) {
+        this.userNumber = userNumber;
+    }
 
     public String getUserTitle() {
         return userTitle;
@@ -55,7 +63,7 @@ public class User
     @Override
     public String toString() //to string to display them when asking for array list
     {
-        return this.getUserTitle() + " " + this.getFullName() + " " + this.getUserEmail();
+        return this.getUserNumber() + " " + this.getUserTitle() + " " + this.getFullName() + " " + this.getUserEmail();
     }
     
     
