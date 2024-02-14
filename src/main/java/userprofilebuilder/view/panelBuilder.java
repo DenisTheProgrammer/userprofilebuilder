@@ -109,10 +109,16 @@ public class panelBuilder
             
             radButOns.add(selButton);//add the buttons to a group to make it easier for layout purposes(future)
             panel.add(butPanel,gbc);//add the new pannel to the existing panel
-        }
+        }  
+    }
+    
+    public void endPanSetUp(JPanel panel)
+    {
+        JButton displayProfile = new JButton("Display Profile");
+        panel.add(displayProfile);
         
-        
-        
+        JButton addProfile = new JButton("Add Profile");
+        panel.add(addProfile);
     }
     
     private class MyListener implements ActionListener //inner class to handle action listeners

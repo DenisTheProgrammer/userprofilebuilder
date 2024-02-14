@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -32,6 +33,7 @@ public final class MainViewer extends JFrame
     private JPanel namePan = new JPanel();
     private JPanel titlePan = new JPanel();
     private JPanel emailPan = new JPanel(); 
+    private JPanel endPan = new JPanel();
     private JTabbedPane tabs = new JTabbedPane();
     private JFrame appFrame = new JFrame();
 
@@ -144,6 +146,10 @@ public final class MainViewer extends JFrame
         tabs.addTab("User Name", namePan);
         tabs.addTab("User Email", emailPan);
         appFrame.add(tabs); //tabbed pans, run app to see, added all 3 tabs
+
+        builder.endPanSetUp(endPan);
+        
+        appFrame.add(endPan, BorderLayout.PAGE_END);
              
         appFrame.setSize(600,400);
         appFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
