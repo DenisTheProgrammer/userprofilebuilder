@@ -27,17 +27,17 @@ import userprofilebuilder.model.UserGroup;
  */
 public class panelBuilder
 {
-    private ButtonGroup radButOns = new ButtonGroup();
+    private ButtonGroup radButGroup = new ButtonGroup();
     private ArrayList<JPanel> butPanStorer = new ArrayList<>();
-    private ArrayList<JRadioButton> radInd = new ArrayList<>();
+    private ArrayList<JRadioButton> radButtons = new ArrayList<>();
 
     //getters and setters   
-    public ButtonGroup getRadButOns() {
-        return radButOns;
+    public ButtonGroup getRadButGroup() {
+        return radButGroup;
     }
 
-    public void setRadButOns(ButtonGroup radButOns) {
-        this.radButOns = radButOns;
+    public void setRadButGroup(ButtonGroup radButGroup) {
+        this.radButGroup = radButGroup;
     }
     
     public ArrayList<JPanel> getButPanStorer() {
@@ -48,12 +48,12 @@ public class panelBuilder
         this.butPanStorer = butPanStorer;
     }
     
-    public ArrayList<JRadioButton> getRadInd() {
-        return radInd;
+    public ArrayList<JRadioButton> getRadButtons() {
+        return radButtons;
     }
 
-    public void setRadInd(ArrayList<JRadioButton> radInd) {
-        this.radInd = radInd;
+    public void setRadInd(ArrayList<JRadioButton> radButtons) {
+        this.radButtons = radButtons;
     }
     
     //methods
@@ -68,47 +68,49 @@ public class panelBuilder
         panel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.insets = new Insets(20, 20, 20, 20); // these are the constraints for grid bag layout - play with in the future 
+        gbc.insets = new Insets(5, 5, 5, 5); // these are the constraints for grid bag layout - play with in the future 
         
         for(int i = 0; i < userList.size();i++)
         {
+            Border border = BorderFactory.createTitledBorder(userList.get(i).getUserNumber());
             JPanel butPanel = new JPanel();//create a pannel per button
+            butPanel.setBorder(border);
             butPanStorer.add(butPanel); //add the panel that holds the buttons to a list to not lose the reference
             JRadioButton selButton = null;//initiate selButton
             
             if (menu.equals("fullName"))
             {
                 selButton = new JRadioButton(String.valueOf(userList.get(i).getFullName()));
-                radInd.add(selButton);
+                radButtons.add(selButton);
             }
             
             if (menu.equals("title"))
             {    
                 selButton = new JRadioButton(String.valueOf(userList.get(i).getUserTitle()));
-                radInd.add(selButton);
+                radButtons.add(selButton);
             }
             
             if(menu.equals("email"))
             {
                 selButton = new JRadioButton(String.valueOf(userList.get(i).getUserEmail()));
-                radInd.add(selButton);
+                radButtons.add(selButton);
             }
             
             JButton editButton = new JButton("Edit");//create the edit button
             JButton delButton = new JButton("Delete");//create the delete button
             
-            editButton.addActionListener(new MyListener(selButton, fileName));//link the listener to the MyListener class
+            editButton.addActionListener(new radListener(selButton, fileName));//link the listener to the MyListener class
             editButton.setActionCommand("edit");//set command name
             
-            delButton.addActionListener(new MyListener(selButton, fileName));//link the listener to the MyListener Class
+            delButton.addActionListener(new radListener(selButton, fileName));//link the listener to the MyListener Class
             delButton.setActionCommand("delete");//set command name
             
             butPanel.add(selButton);
             butPanel.add(editButton);
             butPanel.add(delButton);//add the buttons to the panel
             
-            radButOns.add(selButton);//add the buttons to a group to make it easier for layout purposes(future)
-            panel.add(butPanel,gbc);//add the new pannel to the existing panel
+            radButGroup.add(selButton);//add the buttons to a group to make it easier for layout purposes(future)
+            panel.add(butPanel, gbc);//add the new pannel to the existing panel
         }  
     }
     
@@ -116,12 +118,14 @@ public class panelBuilder
     {
         JButton displayProfile = new JButton("Display Profile");
         panel.add(displayProfile);
+        displayProfile.addActionListener(new endListener(getRadButtons()));//link the button to a class
+        displayProfile.setActionCommand("display");//callthe action something
         
         JButton addProfile = new JButton("Add Profile");
         panel.add(addProfile);
     }
     
-    private class MyListener implements ActionListener //inner class to handle action listeners
+    private class radListener implements ActionListener //inner class to handle action listeners for the radio buttons and associates
     {
         private JRadioButton selButton;
         private String fileName;
@@ -144,7 +148,7 @@ public class panelBuilder
         }
         
         //constructor
-        public MyListener(JRadioButton selButton, String fileName)//constructor that takes a parameter, see edit button
+        public radListener(JRadioButton selButton, String fileName)//constructor that takes a parameter, see edit button
         {
             this.selButton = selButton;
             this.fileName = fileName;
@@ -183,7 +187,7 @@ public class panelBuilder
                 
                 MainViewer app = MainViewer.getInstance();
                 
-                int index = getRadInd().indexOf(selButton);
+                int index = getRadButtons().indexOf(selButton);
                 System.out.println(index);
                 if(index > 5)
                 {
@@ -209,9 +213,41 @@ public class panelBuilder
                 app.getTabs().revalidate();
                 app.getTabs().repaint(); 
             }
-            
-        
         }
+    }
+    
+    private class endListener implements ActionListener
+    {
+        private ArrayList<JRadioButton> radButtons = new ArrayList<>();
+        
+        public endListener(ArrayList<JRadioButton> radButtons)
+        {
+            this.radButtons = radButtons;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) 
+        {
+            if(e.getActionCommand().equals("display"))
+            {
+                String search = "";
+                UserGroup uGroup = UserGroup.getInstance();
+                for(int i=0; i<radButtons.size();i++)//find which button is selected and add its text into a string
+                {
+                    if(radButtons.get(i).isSelected() == true)
+                    {
+                        search = (radButtons.get(i).getText());  
+                    }
+                } 
+                
+                for (int i = 0; i < uGroup.getUserGroup().size();i++)
+                {
+                    uGroup.getUserGroup().get(i).getProfile(search);//loop through all users and find the one we are looking for
+                }
+            }
+            
+        }
+        
     }
 
   

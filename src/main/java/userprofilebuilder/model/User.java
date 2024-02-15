@@ -59,6 +59,19 @@ public class User
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
     }
+    
+    public void getProfile(String identifier)//display profile based on a string 
+    {
+       if(identifier.equals(this.userTitle)||identifier.equals(this.fullName)||identifier.equals(this.userEmail)) 
+       {
+           System.out.println("{");
+           System.out.println(this.getUserNumber());
+           System.out.println(this.getUserTitle());
+           System.out.println(this.getFullName());
+           System.out.println(this.getUserEmail()); 
+           System.out.println("}");
+       }
+    }
 
     @Override
     public String toString() //to string to display them when asking for array list
