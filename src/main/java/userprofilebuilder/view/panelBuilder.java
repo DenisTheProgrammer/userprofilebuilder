@@ -27,19 +27,10 @@ import userprofilebuilder.model.UserGroup;
  */
 public class panelBuilder
 {
-    private ButtonGroup radButGroup = new ButtonGroup();
     private ArrayList<JPanel> butPanStorer = new ArrayList<>();
     private ArrayList<JRadioButton> radButtons = new ArrayList<>();
 
-    //getters and setters   
-    public ButtonGroup getRadButGroup() {
-        return radButGroup;
-    }
-
-    public void setRadButGroup(ButtonGroup radButGroup) {
-        this.radButGroup = radButGroup;
-    }
-    
+    //getters and setters    
     public ArrayList<JPanel> getButPanStorer() {
         return butPanStorer;
     }
@@ -82,18 +73,24 @@ public class panelBuilder
             {
                 selButton = new JRadioButton(String.valueOf(userList.get(i).getFullName()));
                 radButtons.add(selButton);
+                selButton.addActionListener(new endListener(radButtons));
+                selButton.setActionCommand("select");
             }
             
             if (menu.equals("title"))
             {    
                 selButton = new JRadioButton(String.valueOf(userList.get(i).getUserTitle()));
                 radButtons.add(selButton);
+                selButton.addActionListener(new endListener(radButtons));
+                selButton.setActionCommand("select");
             }
             
             if(menu.equals("email"))
             {
                 selButton = new JRadioButton(String.valueOf(userList.get(i).getUserEmail()));
                 radButtons.add(selButton);
+                selButton.addActionListener(new endListener(radButtons));
+                selButton.setActionCommand("select");
             }
             
             JButton editButton = new JButton("Edit");//create the edit button
@@ -109,7 +106,6 @@ public class panelBuilder
             butPanel.add(editButton);
             butPanel.add(delButton);//add the buttons to the panel
             
-            radButGroup.add(selButton);//add the buttons to a group to make it easier for layout purposes(future)
             panel.add(butPanel, gbc);//add the new pannel to the existing panel
         }  
     }
@@ -243,6 +239,34 @@ public class panelBuilder
                 for (int i = 0; i < uGroup.getUserGroup().size();i++)
                 {
                     uGroup.getUserGroup().get(i).getProfile(search);//loop through all users and find the one we are looking for
+                }
+            }
+            
+            else if(e.getActionCommand().equals("select"))
+            {
+                System.out.println("Work");
+                for(int i = 0; i < radButtons.size(); i++)//loops through all the buttons, remove button group to select all buttons
+                {
+                    if(radButtons.get(i).isSelected() == true) //this finds out which button is selected
+                    {
+                        if (radButtons.indexOf(radButtons.get(i)) > 5)
+                        {
+                            radButtons.get(i-3).setSelected(true);
+                            radButtons.get(i-6).setSelected(true);
+                        }
+                        
+                        else if (radButtons.indexOf(radButtons.get(i)) > 2)
+                        {
+                            radButtons.get(i-3).setSelected(true);
+                            radButtons.get(i+3).setSelected(true);
+                        }
+                        
+                        else if(radButtons.indexOf(radButtons.get(i)) >= 0)
+                        {
+                            radButtons.get(i+3).setSelected(true);
+                            radButtons.get(i+6).setSelected(true);
+                        }
+                    }
                 }
             }
             
