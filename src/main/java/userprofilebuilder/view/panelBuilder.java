@@ -244,7 +244,6 @@ public class panelBuilder
             
             else if(e.getActionCommand().equals("select"))
             {
-                System.out.println("Work");
                 for(int i = 0; i < radButtons.size(); i++)//loops through all the buttons, remove button group to select all buttons
                 {
                     if(radButtons.get(i).isSelected() == true) //this finds out which button is selected
@@ -266,7 +265,7 @@ public class panelBuilder
                             radButtons.get(i+3).setSelected(true);
                             radButtons.get(i+6).setSelected(true);
                         }
-                    }
+                    } 
                 }
             }
             
