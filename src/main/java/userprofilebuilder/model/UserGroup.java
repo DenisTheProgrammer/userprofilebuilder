@@ -32,9 +32,14 @@ public final class UserGroup {
     public ArrayList<User> getUserGroup() {
         return userGroup;
     }
-    
-    public void setUserGroup(User user) {
-        userGroup.add(user);
+
+    public void setUserGroup(ArrayList<User> userGroup) {
+        this.userGroup = userGroup;
+    }
+
+    public void addToUserGroup(User u)
+    {
+        userGroup.add(u);
     }
     
 }

@@ -33,7 +33,7 @@ public class FileManager
                     String[] details = line.split(",");
                     //System.out.println(details[2]);
                     User u = new User(details[0], details[1], details[2], details[3]);
-                    uGroup.setUserGroup(u); //new object users in then add each user to ArrayList
+                    uGroup.addToUserGroup(u); //new object users in then add each user to ArrayList
                     }      
             
                 }
@@ -225,6 +225,25 @@ public class FileManager
                 writer.write(uGroup.getUserGroup().get(i).getUserEmail());
                 writer.newLine();
             }
+        }
+        
+        catch(Exception x)
+        {
+            x.printStackTrace();
+        }
+    }
+    
+    public void writeNewUserToTemp(String fileName,String userNumber, String userTitle, String userFullName, String userEmail)
+    {
+        try
+        (
+            FileReader file = new FileReader(fileName);
+            BufferedReader reader = new BufferedReader(file);
+            FileWriter temp = new FileWriter("temp.csv");
+            BufferedWriter writer = new BufferedWriter(temp);
+        )
+        {
+            //read the file and re write its content + the nre user into temp
         }
         
         catch(Exception x)

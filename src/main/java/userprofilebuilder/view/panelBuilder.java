@@ -319,9 +319,7 @@ public class panelBuilder
             }
             else if(e.getActionCommand().equals("addProfile"))
             {
-                System.out.println("make the form now");
                 AddDialog dialog = new AddDialog();
-                dialog.initialiseDialog();
             }
             
         }
