@@ -11,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -29,6 +28,10 @@ public class panelBuilder
 {
     private ArrayList<JPanel> butPanStorer = new ArrayList<>();
     private ArrayList<JRadioButton> radButtons = new ArrayList<>();
+    
+    private int selected1;
+    private int selected2;
+    private int selected3;//these variables keep track of what radio buttons were previously selected 
 
     //getters and setters    
     public ArrayList<JPanel> getButPanStorer() {
@@ -214,6 +217,8 @@ public class panelBuilder
     
     private class endListener implements ActionListener
     {
+        
+        
         private ArrayList<JRadioButton> radButtons = new ArrayList<>();
         
         public endListener(ArrayList<JRadioButton> radButtons)
@@ -244,6 +249,14 @@ public class panelBuilder
             
             else if(e.getActionCommand().equals("select"))
             {
+                if(selected2 != 0)
+                {
+                    radButtons.get(selected1).setSelected(false);
+                    radButtons.get(selected2).setSelected(false);
+                    radButtons.get(selected3).setSelected(false);
+                } //deselect the previous radio buttons, condition makes it ignore the if on initial press
+                //this allows for the first row of radio buttons to be selected on first press
+                
                 for(int i = 0; i < radButtons.size(); i++)//loops through all the buttons, remove button group to select all buttons
                 {
                     if(radButtons.get(i).isSelected() == true) //this finds out which button is selected
@@ -252,18 +265,27 @@ public class panelBuilder
                         {
                             radButtons.get(i-3).setSelected(true);
                             radButtons.get(i-6).setSelected(true);
+                            selected1 = i;
+                            selected2 = i-3;
+                            selected3 = i-6;
                         }
                         
                         else if (radButtons.indexOf(radButtons.get(i)) > 2)
                         {
                             radButtons.get(i-3).setSelected(true);
                             radButtons.get(i+3).setSelected(true);
+                            selected1 = i;
+                            selected2 = i-3;
+                            selected3 = i+3;
                         }
                         
                         else if(radButtons.indexOf(radButtons.get(i)) >= 0)
                         {
                             radButtons.get(i+3).setSelected(true);
                             radButtons.get(i+6).setSelected(true);
+                            selected1 = i;
+                            selected2 = i+3;
+                            selected3 = i+6;
                         }
                     } 
                 }
