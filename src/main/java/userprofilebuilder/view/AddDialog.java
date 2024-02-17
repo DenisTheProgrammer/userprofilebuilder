@@ -5,9 +5,11 @@
 package userprofilebuilder.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,12 +22,13 @@ import javax.swing.JTextField;
  */
 public class AddDialog extends JDialog
 {
-    JDialog dialog = new JDialog(new JFrame(),"Dialog",true); 
+    JDialog dialog = new JDialog(new JFrame(),"Enter New User",true); 
     JPanel midPan = new JPanel();
     JPanel profilePan = new JPanel();
     JPanel titlePan = new JPanel();
     JPanel namePan = new JPanel();
     JPanel emailPan = new JPanel();
+    JPanel endPan = new JPanel();
     
     public void initialiseDialog()
     {
@@ -37,26 +40,37 @@ public class AddDialog extends JDialog
         gbc.insets = new Insets(5, 5, 5, 5);
         
         JLabel profile = new JLabel("Profile");
-        JTextField profileInp = new JTextField("Enter your profile name");//you can use .getText() to get the input
+        JTextField profileInp = new JTextField();//you can use .getText() to get the input
+        profileInp.setPreferredSize(new Dimension(100,20));
         profilePan.add(profile);
         profilePan.add(profileInp);
         
         JLabel title = new JLabel("Title");
-        JTextField titleInp = new JTextField("Enter your title");//you can use .getText() to get the input
+        JTextField titleInp = new JTextField();//you can use .getText() to get the input
+        titleInp.setPreferredSize(new Dimension(100,20));
         titlePan.add(title);
         titlePan.add(titleInp);
         
         JLabel fullName = new JLabel("Full Name");
-        JTextField fullNameInp = new JTextField("Enter your name");//you can use .getText() to get the input
+        JTextField fullNameInp = new JTextField();//you can use .getText() to get the input
+        fullNameInp.setPreferredSize(new Dimension(100,20));
         namePan.add(fullName);
         namePan.add(fullNameInp);
         
         JLabel email = new JLabel("Email");
-        JTextField emailInp = new JTextField("Enter your email");//you can use .getText() to get the input
+        JTextField emailInp = new JTextField();//you can use .getText() to get the input
+        emailInp.setPreferredSize(new Dimension(100,20));
         emailPan.add(email);
         emailPan.add(emailInp);
         
+        JButton ok = new JButton("OK");
+        JButton cancel = new JButton("Cancel");
+        
+        endPan.add(ok);
+        endPan.add(cancel);
+        
         dialog.add(midPan, BorderLayout.CENTER);
+        dialog.add(endPan, BorderLayout.PAGE_END);
         
         midPan.add(profilePan, gbc);
         midPan.add(titlePan, gbc);
