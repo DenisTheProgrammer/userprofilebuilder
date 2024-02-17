@@ -49,6 +49,31 @@ public class panelBuilder
     public void setRadInd(ArrayList<JRadioButton> radButtons) {
         this.radButtons = radButtons;
     }
+
+    public int getSelected1() {
+        return selected1;
+    }
+
+    public void setSelected1(int selected1) {
+        this.selected1 = selected1;
+    }
+
+    public int getSelected2() {
+        return selected2;
+    }
+
+    public void setSelected2(int selected2) {
+        this.selected2 = selected2;
+    }
+
+    public int getSelected3() {
+        return selected3;
+    }
+
+    public void setSelected3(int selected3) {
+        this.selected3 = selected3;
+    }
+    
     
     //methods
     public void borderSetUp(JPanel panel, String name)
@@ -122,6 +147,8 @@ public class panelBuilder
         
         JButton addProfile = new JButton("Add Profile");
         panel.add(addProfile);
+        addProfile.addActionListener(new endListener(getRadButtons()));
+        addProfile.setActionCommand("addProfile");
     }
     
     private class radListener implements ActionListener //inner class to handle action listeners for the radio buttons and associates
@@ -289,6 +316,12 @@ public class panelBuilder
                         }
                     } 
                 }
+            }
+            else if(e.getActionCommand().equals("addProfile"))
+            {
+                System.out.println("make the form now");
+                AddDialog dialog = new AddDialog();
+                dialog.initialiseDialog();
             }
             
         }
