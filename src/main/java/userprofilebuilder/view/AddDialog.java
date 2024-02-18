@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import userprofilebuilder.controller.FileManager;
 import userprofilebuilder.model.User;
 import userprofilebuilder.model.UserGroup;
 
@@ -39,6 +40,11 @@ public class AddDialog extends JDialog
     private String fullNameStr;
     private String emailStr;
     
+    private JTextField profileInp = new JTextField();//you can use .getText() to get the input
+    private JTextField titleInp = new JTextField();//you can use .getText() to get the input
+    private JTextField fullNameInp = new JTextField();//you can use .getText() to get the input
+    private JTextField emailInp = new JTextField();//you can use .getText() to get the input
+    
     public AddDialog()
     {
         dialog.setLayout(new BorderLayout());
@@ -49,30 +55,22 @@ public class AddDialog extends JDialog
         gbc.insets = new Insets(5, 5, 5, 5);
         
         JLabel profile = new JLabel("Profile");
-        JTextField profileInp = new JTextField();//you can use .getText() to get the input
         profileInp.setPreferredSize(new Dimension(100,20));
-        profileStr = profileInp.getText();
         profilePan.add(profile);
         profilePan.add(profileInp);
         
         JLabel title = new JLabel("Title");
-        JTextField titleInp = new JTextField();//you can use .getText() to get the input
         titleInp.setPreferredSize(new Dimension(100,20));
-        titleStr = titleInp.getText();
         titlePan.add(title);
         titlePan.add(titleInp);
         
         JLabel fullName = new JLabel("Full Name");
-        JTextField fullNameInp = new JTextField();//you can use .getText() to get the input
         fullNameInp.setPreferredSize(new Dimension(100,20));
-        fullNameStr = fullNameInp.getText();
         namePan.add(fullName);
         namePan.add(fullNameInp);
         
         JLabel email = new JLabel("Email");
-        JTextField emailInp = new JTextField();//you can use .getText() to get the input
         emailInp.setPreferredSize(new Dimension(100,20));
-        emailStr = emailInp.getText();
         emailPan.add(email);
         emailPan.add(emailInp);
         
@@ -113,10 +111,19 @@ public class AddDialog extends JDialog
             
             else if(e.getActionCommand().equals("ok"))
             {
+                profileStr = profileInp.getText();
+                titleStr = titleInp.getText();
+                fullNameStr = fullNameInp.getText();
+                emailStr = emailInp.getText();
+                
+                MainViewer view = MainViewer.getInstance();
                 UserGroup uGroup = UserGroup.getInstance();
-                User u = new User(profileStr, titleStr, fullNameStr, emailStr);
+                System.out.println(profileStr);
+                /*User u = new User(profileStr, titleStr, fullNameStr, emailStr);
                 uGroup.addToUserGroup(u);
-                System.out.println("the updated user group now contains " + uGroup.getUserGroup());
+                System.out.println("the updated user group now contains " + uGroup.getUserGroup());*/
+                FileManager fileManager = new FileManager();
+                fileManager.writeNewUserToTemp(view.getOpenFile().getName(), profileStr, titleStr, fullNameStr, emailStr);
             }
         }
         

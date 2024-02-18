@@ -36,6 +36,7 @@ public final class MainViewer extends JFrame
     private JPanel endPan = new JPanel();
     private JTabbedPane tabs = new JTabbedPane();
     private JFrame appFrame = new JFrame();
+    private File openFile;
 
     //singleton + constructor
     
@@ -97,6 +98,22 @@ public final class MainViewer extends JFrame
     public void setTabs(JTabbedPane tabs) 
     {
         this.tabs = tabs;
+    }
+
+    public JPanel getEndPan() {
+        return endPan;
+    }
+
+    public void setEndPan(JPanel endPan) {
+        this.endPan = endPan;
+    }
+
+    public File getOpenFile() {
+        return openFile;
+    }
+
+    public void setOpenFile(File openFile) {
+        this.openFile = openFile;
     }
 
     //methods
@@ -168,12 +185,13 @@ public final class MainViewer extends JFrame
                 int open = fileChooser.showOpenDialog(new JFrame()); //shows 1 on cancel and 0 on opening a file
                 if(open == 0)
                 {
-                    File file = fileChooser.getSelectedFile();//gets the selected file and stores it
+                    //look here
+                    openFile = fileChooser.getSelectedFile();//gets the selected file and stores it
                     //System.out.println(file);
                     UserGroup uGroup = UserGroup.getInstance();
                     uGroup.getUserGroup().clear();//clear array
                     FileManager fileManager = new FileManager();
-                    fileManager.fileInitialiser(file.getName());//populate array with content of selected file
+                    fileManager.fileInitialiser(openFile.getName());//populate array with content of selected file
                     //System.out.println("The new array consists of " + uGroup.getUserGroup());
                     MainViewer view = MainViewer.getInstance();
                     
@@ -185,7 +203,7 @@ public final class MainViewer extends JFrame
                     
                     view.getAppFrame().revalidate();
                     view.getAppFrame().repaint();
-                    view.myGui(uGroup.getUserGroup(), file.getName());//re populate the view with new content
+                    view.myGui(uGroup.getUserGroup(), openFile.getName());//re populate the view with new content
                     
                 }
                 else

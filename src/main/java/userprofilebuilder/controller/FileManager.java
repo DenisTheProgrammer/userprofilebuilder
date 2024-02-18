@@ -243,7 +243,28 @@ public class FileManager
             BufferedWriter writer = new BufferedWriter(temp);
         )
         {
-            //read the file and re write its content + the nre user into temp
+            //read the file and re write its content + the new user into temp
+            String line;
+            while ((line = reader.readLine()) != null)
+            {
+                String[] words = line.split(",");
+                for (int i = 0; i < words.length; i++)
+                {
+                    if (i == (words.length - 1))
+                    {
+                       writer.write(words[i]); 
+                    }
+                    else
+                    {
+                        writer.write(words[i] + ",");
+                    }  
+                }
+                writer.newLine();
+            }
+            
+            writer.write(userNumber + "," + userTitle + "," + userFullName + "," + userEmail);
+            writer.newLine();
+            
         }
         
         catch(Exception x)
