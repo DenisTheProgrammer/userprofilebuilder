@@ -167,6 +167,8 @@ public final class MainViewer extends JFrame
         builder.endPanSetUp(endPan);
         
         appFrame.add(endPan, BorderLayout.PAGE_END);
+        
+        openFile = new File(fileName);
              
         appFrame.setSize(600,400);
         appFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -198,6 +200,7 @@ public final class MainViewer extends JFrame
                     view.getTitlePan().removeAll();
                     view.getNamePan().removeAll();
                     view.getEmailPan().removeAll();//remove each pan
+                    view.getEndPan().removeAll();
                     
                     view.getAppFrame().getContentPane().removeAll();//remove all content from the view
                     

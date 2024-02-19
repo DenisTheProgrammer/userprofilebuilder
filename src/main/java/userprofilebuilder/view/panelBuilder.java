@@ -214,26 +214,27 @@ public class panelBuilder
                 MainViewer app = MainViewer.getInstance();
                 
                 int index = getRadButtons().indexOf(selButton);
+                int totNum = getRadButtons().size();
                 System.out.println(index);
-                if(index > 5)
+                if(index > (((totNum / 3) * 2) - 1))
                 {
-                   app.getTitlePan().remove(butPanStorer.get(index - 6));
-                   app.getNamePan().remove(butPanStorer.get(index - 3));
+                   app.getTitlePan().remove(butPanStorer.get(index - (totNum / 3* 2)));
+                   app.getNamePan().remove(butPanStorer.get(index - (totNum / 3)));
                    app.getEmailPan().remove(butPanStorer.get(index));
                 }
                 
-                else if(index >2)
+                else if(index > ((totNum / 3) - 1))
                 {
-                    app.getTitlePan().remove(butPanStorer.get(index - 3));
+                    app.getTitlePan().remove(butPanStorer.get(index - (totNum / 3)));
                     app.getNamePan().remove(butPanStorer.get(index));
-                    app.getEmailPan().remove(butPanStorer.get(index + 3));
+                    app.getEmailPan().remove(butPanStorer.get(index + (totNum / 3)));
                 }
                 
                 else
                 {
                     app.getTitlePan().remove(butPanStorer.get(index));
-                    app.getNamePan().remove(butPanStorer.get(index + 3));
-                    app.getEmailPan().remove(butPanStorer.get(index + 6));
+                    app.getNamePan().remove(butPanStorer.get(index + (totNum / 3)));
+                    app.getEmailPan().remove(butPanStorer.get(index + (totNum / 3 * 2)));
                 }
 
                 app.getTabs().revalidate();
@@ -276,6 +277,8 @@ public class panelBuilder
             
             else if(e.getActionCommand().equals("select"))
             {
+                int totNum = getRadButtons().size();
+                
                 if(selected2 != 0)
                 {
                     radButtons.get(selected1).setSelected(false);
@@ -288,31 +291,31 @@ public class panelBuilder
                 {
                     if(radButtons.get(i).isSelected() == true) //this finds out which button is selected
                     {
-                        if (radButtons.indexOf(radButtons.get(i)) > 5)
+                        if (radButtons.indexOf(radButtons.get(i)) > ((totNum / 3 * 2) - 1))
                         {
-                            radButtons.get(i-3).setSelected(true);
-                            radButtons.get(i-6).setSelected(true);
+                            radButtons.get(i-(totNum / 3)).setSelected(true);
+                            radButtons.get(i-(totNum / 3 * 2)).setSelected(true);
                             selected1 = i;
-                            selected2 = i-3;
-                            selected3 = i-6;
+                            selected2 = i- (totNum / 3);
+                            selected3 = i- (totNum / 3 * 2);
                         }
                         
-                        else if (radButtons.indexOf(radButtons.get(i)) > 2)
+                        else if (radButtons.indexOf(radButtons.get(i)) > ((totNum / 3) - 1))
                         {
-                            radButtons.get(i-3).setSelected(true);
-                            radButtons.get(i+3).setSelected(true);
+                            radButtons.get(i - (totNum / 3)).setSelected(true);
+                            radButtons.get(i + (totNum / 3)).setSelected(true);
                             selected1 = i;
-                            selected2 = i-3;
-                            selected3 = i+3;
+                            selected2 = i - (totNum / 3);
+                            selected3 = i + (totNum/3);
                         }
                         
                         else if(radButtons.indexOf(radButtons.get(i)) >= 0)
                         {
-                            radButtons.get(i+3).setSelected(true);
-                            radButtons.get(i+6).setSelected(true);
+                            radButtons.get(i + (totNum / 3)).setSelected(true);
+                            radButtons.get(i + (totNum / 3 * 2)).setSelected(true);
                             selected1 = i;
-                            selected2 = i+3;
-                            selected3 = i+6;
+                            selected2 = i + (totNum / 3);
+                            selected3 = i + (totNum / 3 * 2);
                         }
                     } 
                 }

@@ -45,6 +45,129 @@ public class AddDialog extends JDialog
     private JTextField fullNameInp = new JTextField();//you can use .getText() to get the input
     private JTextField emailInp = new JTextField();//you can use .getText() to get the input
     
+    //getters and setters
+
+    public JDialog getDialog() {
+        return dialog;
+    }
+
+    public void setDialog(JDialog dialog) {
+        this.dialog = dialog;
+    }
+
+    public JPanel getMidPan() {
+        return midPan;
+    }
+
+    public void setMidPan(JPanel midPan) {
+        this.midPan = midPan;
+    }
+
+    public JPanel getProfilePan() {
+        return profilePan;
+    }
+
+    public void setProfilePan(JPanel profilePan) {
+        this.profilePan = profilePan;
+    }
+
+    public JPanel getTitlePan() {
+        return titlePan;
+    }
+
+    public void setTitlePan(JPanel titlePan) {
+        this.titlePan = titlePan;
+    }
+
+    public JPanel getNamePan() {
+        return namePan;
+    }
+
+    public void setNamePan(JPanel namePan) {
+        this.namePan = namePan;
+    }
+
+    public JPanel getEmailPan() {
+        return emailPan;
+    }
+
+    public void setEmailPan(JPanel emailPan) {
+        this.emailPan = emailPan;
+    }
+
+    public JPanel getEndPan() {
+        return endPan;
+    }
+
+    public void setEndPan(JPanel endPan) {
+        this.endPan = endPan;
+    }
+
+    public String getProfileStr() {
+        return profileStr;
+    }
+
+    public void setProfileStr(String profileStr) {
+        this.profileStr = profileStr;
+    }
+
+    public String getTitleStr() {
+        return titleStr;
+    }
+
+    public void setTitleStr(String titleStr) {
+        this.titleStr = titleStr;
+    }
+
+    public String getFullNameStr() {
+        return fullNameStr;
+    }
+
+    public void setFullNameStr(String fullNameStr) {
+        this.fullNameStr = fullNameStr;
+    }
+
+    public String getEmailStr() {
+        return emailStr;
+    }
+
+    public void setEmailStr(String emailStr) {
+        this.emailStr = emailStr;
+    }
+
+    public JTextField getProfileInp() {
+        return profileInp;
+    }
+
+    public void setProfileInp(JTextField profileInp) {
+        this.profileInp = profileInp;
+    }
+
+    public JTextField getTitleInp() {
+        return titleInp;
+    }
+
+    public void setTitleInp(JTextField titleInp) {
+        this.titleInp = titleInp;
+    }
+
+    public JTextField getFullNameInp() {
+        return fullNameInp;
+    }
+
+    public void setFullNameInp(JTextField fullNameInp) {
+        this.fullNameInp = fullNameInp;
+    }
+
+    public JTextField getEmailInp() {
+        return emailInp;
+    }
+
+    public void setEmailInp(JTextField emailInp) {
+        this.emailInp = emailInp;
+    }
+    
+    //constructor
     public AddDialog()
     {
         dialog.setLayout(new BorderLayout());
@@ -119,11 +242,24 @@ public class AddDialog extends JDialog
                 MainViewer view = MainViewer.getInstance();
                 UserGroup uGroup = UserGroup.getInstance();
                 System.out.println(profileStr);
-                /*User u = new User(profileStr, titleStr, fullNameStr, emailStr);
-                uGroup.addToUserGroup(u);
-                System.out.println("the updated user group now contains " + uGroup.getUserGroup());*/
                 FileManager fileManager = new FileManager();
                 fileManager.writeNewUserToTemp(view.getOpenFile().getName(), profileStr, titleStr, fullNameStr, emailStr);
+                fileManager.overwriterFromTemp(view.getOpenFile().getName());
+                uGroup.getUserGroup().clear();
+                fileManager.fileInitialiser(view.getOpenFile().getName());
+                
+                view.getTitlePan().removeAll();
+                view.getNamePan().removeAll();
+                view.getEmailPan().removeAll();//remove each pan
+                view.getEndPan().removeAll();
+                    
+                view.getAppFrame().getContentPane().removeAll();//remove all content from the view
+                    
+                view.getAppFrame().revalidate();
+                view.getAppFrame().repaint();
+                view.myGui(uGroup.getUserGroup(), view.getOpenFile().getName());//re populate the view with new content
+                
+                dialog.dispose();
             }
         }
         
